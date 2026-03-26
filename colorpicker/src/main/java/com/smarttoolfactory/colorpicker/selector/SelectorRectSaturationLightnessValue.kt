@@ -74,7 +74,6 @@ fun SelectorRectSaturationValueHSV(
     selectionRadius: Dp = Dp.Unspecified,
     onChange: (Float, Float) -> Unit
 ) {
-
     val valueGradient = valueGradient(hue)
     val hueSaturation = saturationHSVGradient(hue)
 
@@ -101,9 +100,7 @@ private fun SelectorRect(
     onChange: (Float, Float) -> Unit,
     colorModel: ColorModel
 ) {
-
     BoxWithConstraints(modifier) {
-
         val density = LocalDensity.current.density
         val width = constraints.maxWidth.toFloat()
         val height = constraints.maxHeight.toFloat()
@@ -115,8 +112,11 @@ private fun SelectorRect(
          * Circle selector radius for setting [saturation] and [property] by gesture
          */
         val selectorRadius =
-            if (selectionRadius != Dp.Unspecified) selectionRadius.value * density
-            else width.coerceAtMost(height) * .04f
+            if (selectionRadius != Dp.Unspecified) {
+                selectionRadius.value * density
+            } else {
+                width.coerceAtMost(height) * .04f
+            }
 
         /**
          *  Current position is initially set by [saturation] and [property] that is bound
@@ -133,29 +133,28 @@ private fun SelectorRect(
         val posY = (1 - property) * height
         currentPosition = Offset(posX, posY)
 
-
-        val canvasModifier = Modifier
-            .fillMaxSize()
-            .pointerInput(Unit) {
-                detectMotionEvents(
-                    onDown = {
-                        val position = it.position
-                        val saturationChange = (position.x / width).coerceIn(0f, 1f)
-                        val valueChange = (1 - (position.y / height)).coerceIn(0f, 1f)
-                        onChange(saturationChange, valueChange)
-                        it.consume()
-
-                    },
-                    onMove = {
-                        val position = it.position
-                        val saturationChange = (position.x / width).coerceIn(0f, 1f)
-                        val valueChange = (1 - (position.y / height)).coerceIn(0f, 1f)
-                        onChange(saturationChange, valueChange)
-                        it.consume()
-                    },
-                    delayAfterDownInMillis = 20
-                )
-            }
+        val canvasModifier =
+            Modifier
+                .fillMaxSize()
+                .pointerInput(Unit) {
+                    detectMotionEvents(
+                        onDown = {
+                            val position = it.position
+                            val saturationChange = (position.x / width).coerceIn(0f, 1f)
+                            val valueChange = (1 - (position.y / height)).coerceIn(0f, 1f)
+                            onChange(saturationChange, valueChange)
+                            it.consume()
+                        },
+                        onMove = {
+                            val position = it.position
+                            val saturationChange = (position.x / width).coerceIn(0f, 1f)
+                            val valueChange = (1 - (position.y / height)).coerceIn(0f, 1f)
+                            onChange(saturationChange, valueChange)
+                            it.consume()
+                        },
+                        delayAfterDownInMillis = 20
+                    )
+                }
 
         SelectorRectImpl(
             modifier = canvasModifier,
@@ -177,7 +176,6 @@ private fun SelectorRectImpl(
     selectorRadius: Float,
     colorModel: ColorModel
 ) {
-
     Canvas(modifier = modifier) {
         drawBlendingRectGradient(
             dst = brushDst,

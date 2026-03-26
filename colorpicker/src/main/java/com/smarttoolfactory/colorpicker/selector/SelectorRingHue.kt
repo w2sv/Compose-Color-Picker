@@ -49,9 +49,7 @@ fun SelectorRingHue(
     selectionRadius: Dp = Dp.Unspecified,
     onChange: (Float) -> Unit
 ) {
-
     BoxWithConstraints(modifier) {
-
         // Angle from center is required to get Hue which is between 0-360
         // only changes with touch, hue is used for drawing, this is for recomposition after touch
         var angle by remember { mutableStateOf(hue) }
@@ -80,46 +78,46 @@ fun SelectorRingHue(
          * Circle selector radius for setting **angle** which sets hue
          */
         val selectorRadius =
-            if (selectionRadius == Dp.Unspecified)
+            if (selectionRadius == Dp.Unspecified) {
                 (radiusInner * 2 * .04f).coerceAtMost(radiusOuter - radiusInner)
-            else selectionRadius.value * density
-
-        val canvasModifier = Modifier
-            .pointerInput(Unit) {
-                detectMotionEvents(
-                    onDown = {
-                        val position = it.position
-                        // Distance from center to touch point
-                        val distance = calculateDistanceFromCenter(center, position)
-
-                        // if distance is between inner and outer radius then we touched valid area
-                        isTouched = (distance in radiusInner..radiusOuter)
-                        if (isTouched) {
-                            angle = calculateAngleFomLocalCoordinates(center, position)
-                            onChange(angle)
-                            it.consume()
-                        }
-
-                    },
-                    onMove = {
-                        if (isTouched) {
-                            val position = it.position
-                            angle = calculateAngleFomLocalCoordinates(center, position)
-                            onChange(angle)
-                            it.consume()
-                        }
-
-                    },
-                    onUp = {
-                        if (isTouched) {
-                            it.consume()
-                        }
-                        isTouched = false
-
-                    },
-                    delayAfterDownInMillis = 20
-                )
+            } else {
+                selectionRadius.value * density
             }
+
+        val canvasModifier =
+            Modifier
+                .pointerInput(Unit) {
+                    detectMotionEvents(
+                        onDown = {
+                            val position = it.position
+                            // Distance from center to touch point
+                            val distance = calculateDistanceFromCenter(center, position)
+
+                            // if distance is between inner and outer radius then we touched valid area
+                            isTouched = (distance in radiusInner..radiusOuter)
+                            if (isTouched) {
+                                angle = calculateAngleFomLocalCoordinates(center, position)
+                                onChange(angle)
+                                it.consume()
+                            }
+                        },
+                        onMove = {
+                            if (isTouched) {
+                                val position = it.position
+                                angle = calculateAngleFomLocalCoordinates(center, position)
+                                onChange(angle)
+                                it.consume()
+                            }
+                        },
+                        onUp = {
+                            if (isTouched) {
+                                it.consume()
+                            }
+                            isTouched = false
+                        },
+                        delayAfterDownInMillis = 20
+                    )
+                }
 
         HueSelectorRingImpl(
             modifier = canvasModifier,
@@ -148,14 +146,14 @@ private fun HueSelectorRingImpl(
     Canvas(
         modifier = modifier.aspectRatio(1f)
     ) {
-
         val strokeWidth = (radiusOuter - radiusInner)
 
         // Draw hue selection circle with sweep gradient
         drawCircle(
             brush = Brush.sweepGradient(colors = gradientColorScaleHSVReversed, center = center),
             radius = radiusInner + strokeWidth / 2,
-            style = Stroke(
+            style =
+            Stroke(
                 width = strokeWidth
             )
         )

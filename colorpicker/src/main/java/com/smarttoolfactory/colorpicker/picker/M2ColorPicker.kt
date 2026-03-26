@@ -44,10 +44,8 @@ import com.smarttoolfactory.extendedcolors.util.ColorUtil
  */
 @Composable
 fun M2ColorPicker(onColorChange: (Color) -> Unit) {
-
     var headerIndex by remember { mutableStateOf(0) }
     var selectedColorIndex by remember { mutableStateOf(-1) }
-
 
     Row(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
@@ -56,13 +54,15 @@ fun M2ColorPicker(onColorChange: (Color) -> Unit) {
         ) {
             itemsIndexed(ColorSwatch.primaryHeaderColors) { index: Int, item: Color ->
                 ColorDisplay(
-                    modifier = Modifier
+                    modifier =
+                    Modifier
                         .padding(horizontal = 2.dp)
                         .clip(CircleShape)
                         .size(60.dp)
                         .clickable {
                             headerIndex = index
-                        }, color = item
+                        },
+                    color = item
                 )
             }
         }
@@ -84,7 +84,8 @@ fun M2ColorPicker(onColorChange: (Color) -> Unit) {
             }
         }
         Divider(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .fillMaxHeight()
                 .width(1.dp)
                 .background(Color.LightGray)
@@ -111,8 +112,7 @@ fun M2ColorPicker(onColorChange: (Color) -> Unit) {
                             .graphicsLayer {
                                 scaleY = if (selectedColorIndex == index) 1.03f else 1f
                                 scaleX = if (selectedColorIndex == index) 1.03f else 1f
-                            }
-                            .shadow(2.dp, RoundedCornerShape(4.dp))
+                            }.shadow(2.dp, RoundedCornerShape(4.dp))
                             .fillMaxWidth()
                             .clickable {
                                 selectedColorIndex = index
@@ -131,7 +131,8 @@ fun M2ColorPicker(onColorChange: (Color) -> Unit) {
 @Composable
 fun ColorDisplay(modifier: Modifier, color: Color) {
     Box(
-        modifier = modifier
+        modifier =
+        modifier
             .background(color)
     )
 }

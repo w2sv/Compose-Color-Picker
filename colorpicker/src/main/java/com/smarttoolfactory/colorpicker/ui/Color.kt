@@ -19,4 +19,3 @@ val Grey900 = Color(0xff212121)
 
 val Gray = Color(0xff808080)
 val WhiteTransparent = Color(0x00ffffff)
-

@@ -29,7 +29,6 @@ internal fun SliderWithPercent(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
-
         Text(
             modifier = Modifier.width(40.dp),
             text = title,
@@ -45,7 +44,8 @@ internal fun SliderWithPercent(
             onValueChange = onValueChange,
             thumbRadius = 10.dp,
             trackHeight = 8.dp,
-            colors = MaterialSliderDefaults.materialColors(
+            colors =
+            MaterialSliderDefaults.materialColors(
                 inactiveTrackColor = SliderBrushColor(InactiveTrackColor)
             )
         )

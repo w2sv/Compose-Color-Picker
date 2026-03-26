@@ -69,7 +69,6 @@ fun ColorPickerGradientRingRectHSL(
     selectionRadius: Dp = 8.dp,
     onBrushColorChange: (BrushColor) -> Unit
 ) {
-
     var inputColorModel by remember { mutableStateOf(ColorModel.HSL) }
 
     var colorMode by remember {
@@ -87,27 +86,27 @@ fun ColorPickerGradientRingRectHSL(
 
     Column(
         modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
         Spacer(modifier = Modifier.height(10.dp))
 
         // Initial-Current Colors/Gradient Color
         Box(modifier = Modifier.height(80.dp), contentAlignment = Alignment.Center) {
             when (colorMode) {
                 ColorMode.Gradient -> BrushDisplay(gradientColorState = gradientColorState)
-                else -> ColorDisplayRoundedRect(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 50.dp, vertical = 10.dp),
-                    initialColor = initialBrushColor.color,
-                    currentColor = gradientColorState.color
-                )
+                else ->
+                    ColorDisplayRoundedRect(
+                        modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 50.dp, vertical = 10.dp),
+                        initialColor = initialBrushColor.color,
+                        currentColor = gradientColorState.color
+                    )
             }
         }
 
         Box(contentAlignment = Alignment.Center) {
-
             // Ring Shaped Hue Selector
             SelectorRingHue(
                 modifier = Modifier.fillMaxWidth(.9f),
@@ -127,7 +126,8 @@ fun ColorPickerGradientRingRectHSL(
 
             // Rect Shaped Saturation and Lightness Selector
             SelectorRectSaturationLightnessHSL(
-                modifier = Modifier
+                modifier =
+                Modifier
                     .fillMaxWidth(ringInnerRadiusFraction * .6f)
                     .aspectRatio(1f),
                 hue = hue,
@@ -175,7 +175,8 @@ fun ColorPickerGradientRingRectHSL(
         when (colorMode) {
             ColorMode.Gradient -> {
                 Column(
-                    modifier = Modifier
+                    modifier =
+                    Modifier
                         .fillMaxHeight()
                         .verticalScroll(rememberScrollState())
                 ) {
@@ -190,7 +191,8 @@ fun ColorPickerGradientRingRectHSL(
 
             else -> {
                 CompositeSliderPanel(
-                    compositeColor = ColorHSL(
+                    compositeColor =
+                    ColorHSL(
                         hue = hue,
                         saturation = saturation,
                         lightness = lightness,
@@ -213,7 +215,6 @@ fun ColorPickerGradientRingRectHSL(
                 )
             }
         }
-
     }
 }
 

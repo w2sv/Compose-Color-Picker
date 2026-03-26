@@ -27,18 +27,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-//import com.smarttoolfactory.colordetector.ColorData
-import com.smarttoolfactory.colorpicker.R
 import com.smarttoolfactory.extendedcolors.util.ColorUtil
 import com.smarttoolfactory.extendedcolors.util.fractionToIntPercent
+import com.w2sv.colorpicker.R
 import kotlin.math.roundToInt
 
-
-//@Composable
-//fun ColorDisplayWithClipboard(
+// @Composable
+// fun ColorDisplayWithClipboard(
 //    modifier: Modifier = Modifier,
 //    colorData: ColorData
-//) {
+// ) {
 //
 //    val clipboardManager = LocalClipboardManager.current
 //    val context = LocalContext.current
@@ -97,17 +95,12 @@ import kotlin.math.roundToInt
 //            }
 //        }
 //    }
-//}
+// }
 
 @Composable
-fun ColorDisplayWithClipboard(
-    modifier: Modifier = Modifier,
-    color: Color
-) {
-
+fun ColorDisplayWithClipboard(modifier: Modifier = Modifier, color: Color) {
     val clipboardManager = LocalClipboardManager.current
     val context = LocalContext.current
-
 
     val lightness = ColorUtil.colorToHSL(color)[2]
     val textColor = if (lightness < .6f) Color.White else Color.Black
@@ -116,19 +109,21 @@ fun ColorDisplayWithClipboard(
 
     val hexText = ColorUtil.colorToHex(color)
     Column(
-        modifier = modifier
-            .shadow(
-                2.dp, if (expanded) RoundedCornerShape(25)
-                else RoundedCornerShape(50)
-            )
-            .width(200.dp)
-            .background(color = color)
-            .clickable {
-                expanded = !expanded
-            }
-            .padding(start = 16.dp, end = 2.dp, top = 2.dp, bottom = 2.dp),
+        modifier =
+            modifier
+                .shadow(
+                    2.dp,
+                    if (expanded) {
+                        RoundedCornerShape(25)
+                    } else {
+                        RoundedCornerShape(50)
+                    }
+                )
+                .width(200.dp)
+                .background(color = color)
+                .clickable { expanded = !expanded }
+                .padding(start = 16.dp, end = 2.dp, top = 2.dp, bottom = 2.dp)
     ) {
-
         Row {
             Column {
                 Text(
@@ -142,7 +137,8 @@ fun ColorDisplayWithClipboard(
                 onClick = {
                     Toast.makeText(context, "Copied $hexText", Toast.LENGTH_SHORT).show()
                     clipboardManager.setText(AnnotatedString(hexText))
-                }) {
+                }
+            ) {
                 Icon(
                     tint = textColor,
                     painter = painterResource(id = R.drawable.ic_baseline_content_copy_24),
@@ -153,7 +149,6 @@ fun ColorDisplayWithClipboard(
 
         AnimatedVisibility(visible = expanded) {
             Column {
-
                 val rgb = ColorUtil.colorToRGBArray(color)
                 val hslArray: FloatArray = ColorUtil.colorToHSL(color)
                 val hsvArray: FloatArray = ColorUtil.colorToHSV(color)
@@ -164,14 +159,16 @@ fun ColorDisplayWithClipboard(
                     color = textColor
                 )
                 Text(
-                    text = "H: ${hslArray[0].roundToInt()}° " +
+                    text =
+                        "H: ${hslArray[0].roundToInt()}° " +
                             "S: ${hslArray[1].fractionToIntPercent()}% " +
                             "L: ${hslArray[2].fractionToIntPercent()}%",
                     fontSize = 12.sp,
                     color = textColor
                 )
                 Text(
-                    text = "H: ${hsvArray[0].roundToInt()}° " +
+                    text =
+                        "H: ${hsvArray[0].roundToInt()}° " +
                             "S: ${hsvArray[1].fractionToIntPercent()}% " +
                             "V: ${hsvArray[2].fractionToIntPercent()}%",
                     fontSize = 12.sp,

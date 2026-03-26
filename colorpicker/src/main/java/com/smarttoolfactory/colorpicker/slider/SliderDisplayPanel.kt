@@ -44,10 +44,9 @@ fun SliderDisplayPanelHSV(
     onHueChange: ((Float) -> Unit)? = null,
     onSaturationChange: ((Float) -> Unit)? = null,
     onValueChange: ((Float) -> Unit)? = null,
-    onAlphaChange: ((Float) -> Unit)? = null,
+    onAlphaChange: ((Float) -> Unit)? = null
 ) {
     Column(modifier) {
-
         onHueChange?.let { onHueChanged ->
             SliderDisplayHueHSV(
                 modifier = Modifier,
@@ -122,10 +121,9 @@ fun SliderDisplayPanelHSL(
     onHueChange: ((Float) -> Unit)? = null,
     onSaturationChange: ((Float) -> Unit)? = null,
     onLightnessChange: ((Float) -> Unit)? = null,
-    onAlphaChange: ((Float) -> Unit)? = null,
+    onAlphaChange: ((Float) -> Unit)? = null
 ) {
     Column(modifier) {
-
         onHueChange?.let { onHueChanged ->
             SliderDisplayHueHSL(
                 modifier = Modifier,
@@ -199,10 +197,9 @@ fun SliderDisplayPanelRGBA(
     onRedChange: ((Float) -> Unit)? = null,
     onGreenChange: ((Float) -> Unit)? = null,
     onBlueChange: ((Float) -> Unit)? = null,
-    onAlphaChange: ((Float) -> Unit)? = null,
+    onAlphaChange: ((Float) -> Unit)? = null
 ) {
     Column(modifier) {
-
         onRedChange?.let { onRedChanged ->
             SliderDisplayRedRGB(
                 modifier = Modifier,

@@ -61,7 +61,6 @@ fun ColorPickerRingDiamondHEX(
     selectionRadius: Dp = 8.dp,
     onColorChange: (Color, String) -> Unit
 ) {
-
     var inputColorModel by remember { mutableStateOf(ColorModel.HSL) }
 
     val hslArray = ColorUtil.colorToHSL(initialColor)
@@ -88,12 +87,12 @@ fun ColorPickerRingDiamondHEX(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
         Spacer(modifier = Modifier.height(10.dp))
 
         // Initial and Current Colors
         ColorDisplayRoundedRect(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 50.dp, vertical = 10.dp),
             initialColor = initialColor,
@@ -101,7 +100,6 @@ fun ColorPickerRingDiamondHEX(
         )
 
         Box(contentAlignment = Alignment.Center) {
-
             // Ring Shaped Hue Selector
             SelectorRingHue(
                 modifier = Modifier.fillMaxWidth(1f),
@@ -114,14 +112,15 @@ fun ColorPickerRingDiamondHEX(
                 selectionRadius = selectionRadius
             ) { hueChange ->
                 hue = hueChange
-                hexString = ColorUtil.colorToHexAlpha(
-                    Color.hsl(
-                        hue = hue,
-                        saturation = saturation,
-                        lightness = lightness,
-                        alpha = alpha
+                hexString =
+                    ColorUtil.colorToHexAlpha(
+                        Color.hsl(
+                            hue = hue,
+                            saturation = saturation,
+                            lightness = lightness,
+                            alpha = alpha
+                        )
                     )
-                )
             }
 
             // Diamond Shaped Saturation and Lightness Selector
@@ -134,14 +133,15 @@ fun ColorPickerRingDiamondHEX(
             ) { s, l ->
                 saturation = s
                 lightness = l
-                hexString = ColorUtil.colorToHexAlpha(
-                    Color.hsl(
-                        hue = hue,
-                        saturation = saturation,
-                        lightness = lightness,
-                        alpha = alpha
+                hexString =
+                    ColorUtil.colorToHexAlpha(
+                        Color.hsl(
+                            hue = hue,
+                            saturation = saturation,
+                            lightness = lightness,
+                            alpha = alpha
+                        )
                     )
-                )
             }
         }
 
@@ -156,7 +156,8 @@ fun ColorPickerRingDiamondHEX(
         // HSL-HSV-RGB Sliders
         CompositeSliderPanel(
             modifier = Modifier.padding(start = 10.dp, end = 7.dp),
-            compositeColor = ColorHSL(
+            compositeColor =
+            ColorHSL(
                 hue = hue,
                 saturation = saturation,
                 lightness = lightness,
@@ -169,14 +170,15 @@ fun ColorPickerRingDiamondHEX(
                     lightness = color.lightness
                     alpha = color.alpha
 
-                    hexString = ColorUtil.colorToHexAlpha(
-                        Color.hsl(
-                            hue = hue,
-                            saturation = saturation,
-                            lightness = lightness,
-                            alpha = alpha
+                    hexString =
+                        ColorUtil.colorToHexAlpha(
+                            Color.hsl(
+                                hue = hue,
+                                saturation = saturation,
+                                lightness = lightness,
+                                alpha = alpha
+                            )
                         )
-                    )
                 }
             },
             showAlphaSlider = true,
@@ -185,12 +187,14 @@ fun ColorPickerRingDiamondHEX(
         )
 
         HexTextField(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .padding(horizontal = 10.dp)
                 .fillMaxWidth(),
             hexString = hexString,
             useAlpha = true,
-            colors = TextFieldDefaults.textFieldColors(
+            colors =
+            TextFieldDefaults.textFieldColors(
                 textColor = Grey400,
                 placeholderColor = Grey600,
                 backgroundColor = Color.Transparent,

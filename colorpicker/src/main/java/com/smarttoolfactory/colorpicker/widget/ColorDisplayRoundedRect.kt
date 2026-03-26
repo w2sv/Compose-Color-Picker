@@ -28,7 +28,8 @@ fun ColorDisplayRoundedRect(
 ) {
     Row(modifier = modifier.height(40.dp)) {
         Box(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .weight(1f)
                 .fillMaxHeight()
                 .drawChecker(RoundedCornerShape(topStart = 8.dp, bottomStart = 8.dp))
@@ -38,7 +39,8 @@ fun ColorDisplayRoundedRect(
                 )
         )
         Box(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .weight(1f)
                 .fillMaxHeight()
                 .drawChecker(RoundedCornerShape(topEnd = 8.dp, bottomEnd = 8.dp))
@@ -66,7 +68,8 @@ fun ColorDisplayRoundedRect(
 ) {
     Row(modifier = modifier) {
         Box(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .size(boxSize)
                 .drawChecker(RoundedCornerShape(topStart = 8.dp, bottomStart = 8.dp))
                 .background(
@@ -75,7 +78,8 @@ fun ColorDisplayRoundedRect(
                 )
         )
         Box(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .size(boxSize)
                 .drawChecker(RoundedCornerShape(topEnd = 8.dp, bottomEnd = 8.dp))
                 .background(

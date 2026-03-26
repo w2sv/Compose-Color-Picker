@@ -48,7 +48,8 @@ fun ColorPickerRectHueSaturationHSV(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         SelectorRectHueSaturationHSV(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .fillMaxWidth()
                 .aspectRatio(4 / 3f),
             hue = hue,
@@ -57,7 +58,7 @@ fun ColorPickerRectHueSaturationHSV(
             onChange = { h, s ->
                 hue = h
                 saturation = s
-            },
+            }
         )
 
         Column(modifier = Modifier.padding(8.dp)) {
@@ -84,4 +85,3 @@ fun ColorPickerRectHueSaturationHSV(
         }
     }
 }
-

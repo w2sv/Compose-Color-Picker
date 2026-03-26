@@ -26,7 +26,6 @@ import com.smarttoolfactory.colorpicker.util.hexRegexSingleChar
 import com.smarttoolfactory.colorpicker.util.hexWithAlphaRegex
 import com.smarttoolfactory.extendedcolors.util.HexUtil
 
-
 /**
  * [TextField] that displays color in hex representation either with #RRGGBB or #AARRGGBB
  * depending on [useAlpha] flag.
@@ -54,11 +53,12 @@ fun HexTextField(
     modifier: Modifier = Modifier,
     hexString: String,
     textStyle: TextStyle = TextStyle(fontSize = 24.sp),
-    colors: TextFieldColors = TextFieldDefaults.textFieldColors(
-        backgroundColor = Color.Transparent,
-        focusedIndicatorColor = Color.Transparent,
-        unfocusedIndicatorColor = Color.Transparent
-    ),
+    colors: TextFieldColors =
+        TextFieldDefaults.textFieldColors(
+            backgroundColor = Color.Transparent,
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent
+        ),
     label: @Composable () -> Unit = {
         Text("Hex", color = Grey400)
     },
@@ -72,7 +72,8 @@ fun HexTextField(
 ) {
     val currentRegex = if (useAlpha) hexWithAlphaRegex else hexRegex
     OutlinedTextField(
-        modifier = modifier
+        modifier =
+        modifier
             .widthIn(min = 80.dp)
             .drawBehind {
                 drawLine(
@@ -90,7 +91,6 @@ fun HexTextField(
         placeholder = placeholder,
         value = hexString.removePrefix("#"),
         onValueChange = {
-
             if (it.length <= if (useAlpha) 8 else 6) {
                 var validHex = true
 

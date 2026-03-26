@@ -1,8 +1,19 @@
 package com.smarttoolfactory.colorpicker.widget
 
 import androidx.compose.foundation.background
-import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.material.DropdownMenuItem
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ExposedDropdownMenuBox
+import androidx.compose.material.ExposedDropdownMenuDefaults
+import androidx.compose.material.Text
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldColors
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -19,21 +30,23 @@ fun ExposedSelectionMenu(
     modifier: Modifier = Modifier,
     index: Int,
     title: String? = null,
-    textStyle: TextStyle = TextStyle(
-        fontWeight = FontWeight.W600,
-        fontSize = 14.sp
-    ),
-    textFieldColors: TextFieldColors = ExposedDropdownMenuDefaults.textFieldColors(
-        backgroundColor = Color.Transparent,
-        focusedIndicatorColor = Color.Transparent,
-        unfocusedIndicatorColor = Color.Transparent,
-        disabledIndicatorColor = Color.Transparent,
-        focusedLabelColor = Grey400,
-        unfocusedLabelColor = Grey400,
-        trailingIconColor = Grey400,
-        focusedTrailingIconColor = Grey400,
-        textColor = Grey400,
-    ),
+    textStyle: TextStyle =
+        TextStyle(
+            fontWeight = FontWeight.W600,
+            fontSize = 14.sp
+        ),
+    textFieldColors: TextFieldColors =
+        ExposedDropdownMenuDefaults.textFieldColors(
+            backgroundColor = Color.Transparent,
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent,
+            disabledIndicatorColor = Color.Transparent,
+            focusedLabelColor = Grey400,
+            unfocusedLabelColor = Grey400,
+            trailingIconColor = Grey400,
+            focusedTrailingIconColor = Grey400,
+            textColor = Grey400
+        ),
     dropdownMenuItemColors: DropdownMenuItemColors = DropdownMenuItemColors(),
     options: List<String>,
     onSelected: (Int) -> Unit

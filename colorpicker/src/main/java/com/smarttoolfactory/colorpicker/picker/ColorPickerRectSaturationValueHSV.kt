@@ -48,7 +48,8 @@ fun ColorPickerRectSaturationValueHSV(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         SelectorRectSaturationValueHSV(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .fillMaxWidth()
                 .aspectRatio(4 / 3f),
             hue = hue,

@@ -48,7 +48,8 @@ fun ColorPickerRectHueSaturationHSL(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         SelectorRectHueSaturationHSL(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .fillMaxWidth()
                 .aspectRatio(4 / 3f),
             hue = hue,
@@ -109,7 +110,8 @@ fun ColorPickerRectHueSaturationHSL(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         SelectorRectHueSaturationHSL(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .fillMaxWidth()
                 .aspectRatio(4 / 3f),
             hue = hue,

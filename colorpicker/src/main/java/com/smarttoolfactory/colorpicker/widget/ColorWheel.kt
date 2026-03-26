@@ -12,21 +12,17 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
 import com.smarttoolfactory.colorpicker.ui.gradientColorScaleRGB
 
-
 /**
  * Simple circle with stroke to show rainbow colors as [Brush.sweepGradient]
  */
 @Composable
-fun ColorWheel(
-    modifier: Modifier = Modifier,
-    borderColor: Color
-) {
-
+fun ColorWheel(modifier: Modifier = Modifier, borderColor: Color) {
     Canvas(modifier = modifier.sizeIn(minWidth = 24.dp, minHeight = 24.dp)) {
         val canvasWidth = size.width
         val canvasHeight = size.height
 
-        require(canvasWidth == canvasHeight,
+        require(
+            canvasWidth == canvasHeight,
             lazyMessage = {
                 print("Canvas dimensions should be equal to each other")
             }

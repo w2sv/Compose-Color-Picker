@@ -14,15 +14,24 @@ import kotlin.math.sqrt
  * @param end of interval
  * @param amount e closed unit interval [0, 1]
  */
-fun lerp(start: Float, end: Float, amount: Float): Float {
-    return (1 - amount) * start + amount * end
-}
+fun lerp(
+    start: Float,
+    end: Float,
+    amount: Float
+): Float =
+    (1 - amount) * start + amount * end
 
 /**
  * Scale x1 from start1..end1 range to start2..end2 range
 
  */
-fun scale(start1: Float, end1: Float, pos: Float, start2: Float, end2: Float) =
+fun scale(
+    start1: Float,
+    end1: Float,
+    pos: Float,
+    start2: Float,
+    end2: Float
+) =
     lerp(start2, end2, calculateFraction(start1, end1, pos))
 
 /**
@@ -46,9 +55,12 @@ fun scale(
 /**
  * Calculate fraction for value between a range [end] and [start] coerced into 0f-1f range
  */
-fun calculateFraction(start: Float, end: Float, pos: Float) =
+fun calculateFraction(
+    start: Float,
+    end: Float,
+    pos: Float
+) =
     (if (end - start == 0f) 0f else (pos - start) / (end - start)).coerceIn(0f, 1f)
-
 
 /**
  * Calculate distance from center to touch position
@@ -70,7 +82,6 @@ fun calculateAngleFomLocalCoordinates(center: Offset, position: Offset): Float {
     val dy = center.y - position.y
     val dx = position.x - center.x
     return (((360 + ((atan2(dy, dx) * 180 / PI))) % 360).toFloat())
-
 }
 
 /**
@@ -86,7 +97,6 @@ fun calculatePositionFromAngleAndDistance(
     distance: Float,
     angle: Float
 ): Offset {
-
     val centerX = center.x
     val centerY = center.y
 

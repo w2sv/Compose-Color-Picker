@@ -44,14 +44,13 @@ fun SliderCircleColorDisplayHueHSV(
     @FloatRange(from = 0.0, to = 1.0) value: Float,
     @FloatRange(from = 0.0, to = 1.0) alpha: Float,
     onHueChange: (Float) -> Unit,
-    onAlphaChange: (Float) -> Unit,
+    onAlphaChange: (Float) -> Unit
 ) {
     SliderWithCircleDisplay(
         modifier = modifier,
         circleModifier = circleModifier,
         color = Color.hsv(hue, saturation, value, alpha)
     ) {
-
         SliderHueHSV(
             hue = hue,
             saturation = saturation,
@@ -86,7 +85,7 @@ fun SliderCircleColorDisplaySaturationHSV(
     @FloatRange(from = 0.0, to = 1.0) value: Float,
     @FloatRange(from = 0.0, to = 1.0) alpha: Float,
     onSaturationChange: (Float) -> Unit,
-    onAlphaChange: (Float) -> Unit,
+    onAlphaChange: (Float) -> Unit
 ) {
     SliderWithCircleDisplay(
         modifier = modifier,
@@ -130,9 +129,8 @@ fun SliderCircleColorDisplayValueHSV(
     @FloatRange(from = 0.0, to = 1.0) value: Float,
     @FloatRange(from = 0.0, to = 1.0) alpha: Float,
     onValueChange: (Float) -> Unit,
-    onAlphaChange: (Float) -> Unit,
+    onAlphaChange: (Float) -> Unit
 ) {
-
     SliderWithCircleDisplay(
         modifier = modifier,
         circleModifier = circleModifier,
@@ -150,7 +148,6 @@ fun SliderCircleColorDisplayValueHSV(
         )
     }
 }
-
 
 /**
  * Slider with Circle on left and 2 sliders on right side that display [hue] and [alpha]
@@ -175,14 +172,13 @@ fun SliderCircleColorDisplayHueHSL(
     @FloatRange(from = 0.0, to = 1.0) lightness: Float,
     @FloatRange(from = 0.0, to = 1.0) alpha: Float,
     onHueChange: (Float) -> Unit,
-    onAlphaChange: (Float) -> Unit,
+    onAlphaChange: (Float) -> Unit
 ) {
     SliderWithCircleDisplay(
         modifier = modifier,
         circleModifier = circleModifier,
         color = Color.hsl(hue, saturation, lightness, alpha)
     ) {
-
         SliderHueHSL(
             hue = hue,
             saturation = saturation,
@@ -217,7 +213,7 @@ fun SliderCircleColorDisplaySaturationHSL(
     @FloatRange(from = 0.0, to = 1.0) lightness: Float,
     @FloatRange(from = 0.0, to = 1.0) alpha: Float,
     onSaturationChange: (Float) -> Unit,
-    onAlphaChange: (Float) -> Unit,
+    onAlphaChange: (Float) -> Unit
 ) {
     SliderWithCircleDisplay(
         modifier = modifier,
@@ -257,7 +253,7 @@ fun SliderCircleColorDisplayLightnessHSL(
     @FloatRange(from = 0.0, to = 1.0) lightness: Float,
     alpha: Float,
     onLightnessChange: (Float) -> Unit,
-    onAlphaChange: (Float) -> Unit,
+    onAlphaChange: (Float) -> Unit
 ) {
     SliderWithCircleDisplay(
         modifier = modifier,
@@ -298,7 +294,8 @@ fun SliderWithCircleDisplay(
         verticalAlignment = Alignment.CenterVertically
     ) {
         CircleDisplay(
-            modifier = circleModifier
+            modifier =
+            circleModifier
                 .widthIn(min = 70.dp)
                 .heightIn(min = 70.dp),
             color = color
@@ -317,12 +314,10 @@ fun SliderWithCircleDisplay(
  * checker pattern is displayed behind colored background.
  */
 @Composable
-fun CircleDisplay(
-    modifier: Modifier = Modifier,
-    color: Color
-) {
+fun CircleDisplay(modifier: Modifier = Modifier, color: Color) {
     Box(
-        modifier = modifier
+        modifier =
+        modifier
             .clip(CircleShape)
             .drawChecker(CircleShape)
             .background(color)

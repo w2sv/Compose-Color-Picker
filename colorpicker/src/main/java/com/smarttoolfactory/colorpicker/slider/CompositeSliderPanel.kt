@@ -40,7 +40,6 @@ fun CompositeSliderPanel(
     outputColorModel: ColorModel,
     showAlphaSlider: Boolean = true
 ) {
-
     val inputColor = convertColor(inputColorModel, compositeColor)
 
     when (inputColorModel) {
@@ -79,13 +78,10 @@ fun CompositeSliderPanel(
     }
 }
 
-fun convertColor(colorModel: ColorModel, compositeColor: CompositeColor): CompositeColor {
-
-    return when (colorModel) {
+fun convertColor(colorModel: ColorModel, compositeColor: CompositeColor): CompositeColor =
+    when (colorModel) {
         ColorModel.HSL -> {
-
             when (compositeColor) {
-
                 is ColorHSL -> {
                     compositeColor
                 }
@@ -124,11 +120,8 @@ fun convertColor(colorModel: ColorModel, compositeColor: CompositeColor): Compos
         }
 
         ColorModel.HSV -> {
-
             when (compositeColor) {
-
                 is ColorHSL -> {
-
                     val hue = compositeColor.hue
                     val saturation = compositeColor.saturation
                     val lightness = compositeColor.lightness
@@ -141,8 +134,6 @@ fun convertColor(colorModel: ColorModel, compositeColor: CompositeColor): Compos
                         hsvArray[2],
                         alpha
                     )
-
-
                 }
 
                 is ColorHSV -> {
@@ -166,15 +157,11 @@ fun convertColor(colorModel: ColorModel, compositeColor: CompositeColor): Compos
 
                 else -> ColorHSV.Unspecified
             }
-
         }
 
         ColorModel.RGB -> {
-
             when (compositeColor) {
-
                 is ColorHSL -> {
-
                     val hue = compositeColor.hue
                     val saturation = compositeColor.saturation
                     val lightness = compositeColor.lightness
@@ -191,7 +178,6 @@ fun convertColor(colorModel: ColorModel, compositeColor: CompositeColor): Compos
                 }
 
                 is ColorHSV -> {
-
                     val hue = compositeColor.hue
                     val saturation = compositeColor.saturation
                     val value = compositeColor.value
@@ -204,7 +190,6 @@ fun convertColor(colorModel: ColorModel, compositeColor: CompositeColor): Compos
                         rgbArray[2],
                         alpha
                     )
-
                 }
 
                 is ColorRGB -> {
@@ -214,9 +199,7 @@ fun convertColor(colorModel: ColorModel, compositeColor: CompositeColor): Compos
                 else -> ColorRGB.Unspecified
             }
         }
-
     }
-}
 
 @Composable
 fun CompositeSliderPanelHSL(
@@ -225,23 +208,26 @@ fun CompositeSliderPanelHSL(
     onColorChange: (ColorHSL) -> Unit,
     showAlphaSlider: Boolean
 ) {
-
     val hue = compositeColor.hue
     val saturation = compositeColor.saturation
     val lightness = compositeColor.lightness
     val alpha = compositeColor.alpha
 
-    val alphaLambda: ((Float) -> Unit)? = if (showAlphaSlider) { alphaChange ->
-        onColorChange(
-            ColorHSL(
-                hue = hue,
-                saturation = saturation,
-                lightness = lightness,
-                alpha = alphaChange,
-            )
-        )
-
-    } else null
+    val alphaLambda: ((Float) -> Unit)? =
+        if (showAlphaSlider) {
+            { alphaChange ->
+                onColorChange(
+                    ColorHSL(
+                        hue = hue,
+                        saturation = saturation,
+                        lightness = lightness,
+                        alpha = alphaChange
+                    )
+                )
+            }
+        } else {
+            null
+        }
 
     SliderDisplayPanelHSL(
         modifier = modifier,
@@ -255,7 +241,7 @@ fun CompositeSliderPanelHSL(
                     hue = hueChange,
                     saturation = saturation,
                     lightness = lightness,
-                    alpha = alpha,
+                    alpha = alpha
                 )
             )
         },
@@ -265,7 +251,7 @@ fun CompositeSliderPanelHSL(
                     hue = hue,
                     saturation = saturationChange,
                     lightness = lightness,
-                    alpha = alpha,
+                    alpha = alpha
                 )
             )
         },
@@ -275,11 +261,11 @@ fun CompositeSliderPanelHSL(
                     hue = hue,
                     saturation = saturation,
                     lightness = lightnessChange,
-                    alpha = alpha,
+                    alpha = alpha
                 )
             )
         },
-        onAlphaChange = alphaLambda,
+        onAlphaChange = alphaLambda
     )
 }
 
@@ -290,23 +276,26 @@ fun CompositeSliderPanelHSV(
     onColorChange: (ColorHSV) -> Unit,
     showAlphaSlider: Boolean
 ) {
-
     val hue = compositeColor.hue
     val saturation = compositeColor.saturation
     val value = compositeColor.value
     val alpha = compositeColor.alpha
 
-    val alphaLambda: ((Float) -> Unit)? = if (showAlphaSlider) { alphaChange ->
-        onColorChange(
-            ColorHSV(
-                hue = hue,
-                saturation = saturation,
-                value = value,
-                alpha = alphaChange,
-            )
-        )
-
-    } else null
+    val alphaLambda: ((Float) -> Unit)? =
+        if (showAlphaSlider) {
+            { alphaChange ->
+                onColorChange(
+                    ColorHSV(
+                        hue = hue,
+                        saturation = saturation,
+                        value = value,
+                        alpha = alphaChange
+                    )
+                )
+            }
+        } else {
+            null
+        }
 
     SliderDisplayPanelHSV(
         modifier = modifier,
@@ -320,7 +309,7 @@ fun CompositeSliderPanelHSV(
                     hue = hueChange,
                     saturation = saturation,
                     value = value,
-                    alpha = alpha,
+                    alpha = alpha
                 )
             )
         },
@@ -330,7 +319,7 @@ fun CompositeSliderPanelHSV(
                     hue = hue,
                     saturation = saturationChange,
                     value = value,
-                    alpha = alpha,
+                    alpha = alpha
                 )
             )
         },
@@ -340,11 +329,11 @@ fun CompositeSliderPanelHSV(
                     hue = hue,
                     saturation = saturation,
                     value = onValueChange,
-                    alpha = alpha,
+                    alpha = alpha
                 )
             )
         },
-        onAlphaChange = alphaLambda,
+        onAlphaChange = alphaLambda
     )
 }
 
@@ -355,23 +344,26 @@ fun CompositeSliderPanelRGB(
     onColorChange: (ColorRGB) -> Unit,
     showAlphaSlider: Boolean
 ) {
-
     val red = compositeColor.red
     val green = compositeColor.green
     val blue = compositeColor.blue
     val alpha = compositeColor.alpha
 
-    val alphaLambda: ((Float) -> Unit)? = if (showAlphaSlider) { alphaChange ->
-        onColorChange(
-            ColorRGB(
-                red = red,
-                green = green,
-                blue = blue,
-                alpha = alphaChange,
-            )
-        )
-
-    } else null
+    val alphaLambda: ((Float) -> Unit)? =
+        if (showAlphaSlider) {
+            { alphaChange ->
+                onColorChange(
+                    ColorRGB(
+                        red = red,
+                        green = green,
+                        blue = blue,
+                        alpha = alphaChange
+                    )
+                )
+            }
+        } else {
+            null
+        }
 
     SliderDisplayPanelRGBA(
         modifier = modifier,
@@ -385,7 +377,7 @@ fun CompositeSliderPanelRGB(
                     red = redChange,
                     green = green,
                     blue = blue,
-                    alpha = alpha,
+                    alpha = alpha
                 )
             )
         },
@@ -395,7 +387,7 @@ fun CompositeSliderPanelRGB(
                     red = red,
                     green = greenChange,
                     blue = blue,
-                    alpha = alpha,
+                    alpha = alpha
                 )
             )
         },
@@ -405,10 +397,10 @@ fun CompositeSliderPanelRGB(
                     red = red,
                     green = green,
                     blue = blueChange,
-                    alpha = alpha,
+                    alpha = alpha
                 )
             )
         },
-        onAlphaChange = alphaLambda,
+        onAlphaChange = alphaLambda
     )
 }

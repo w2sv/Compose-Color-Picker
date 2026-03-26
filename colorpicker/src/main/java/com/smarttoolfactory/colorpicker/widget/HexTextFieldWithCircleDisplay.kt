@@ -18,7 +18,6 @@ import androidx.compose.ui.unit.dp
 import com.smarttoolfactory.colorpicker.slider.CircleDisplay
 import com.smarttoolfactory.extendedcolors.util.ColorUtil
 
-
 @Composable
 fun HexTextFieldWithCircleDisplay(
     modifier: Modifier = Modifier,
@@ -27,7 +26,6 @@ fun HexTextFieldWithCircleDisplay(
     useAlpha: Boolean = false,
     onColorChange: (Color) -> Unit
 ) {
-
     var hexString by remember(color) {
         mutableStateOf(
             if (useAlpha) {
@@ -42,9 +40,9 @@ fun HexTextFieldWithCircleDisplay(
         modifier = modifier.requiredHeightIn(min = 100.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-
         CircleDisplay(
-            modifier = circleModifier
+            modifier =
+            circleModifier
                 .widthIn(min = 70.dp)
                 .heightIn(min = 70.dp),
             color = color

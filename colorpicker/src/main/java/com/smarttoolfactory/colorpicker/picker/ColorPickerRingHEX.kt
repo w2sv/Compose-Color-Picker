@@ -21,7 +21,6 @@ import com.smarttoolfactory.colorpicker.slider.CompositeSliderPanel
 import com.smarttoolfactory.colorpicker.widget.HexTextFieldWithCircleDisplay
 import com.smarttoolfactory.extendedcolors.util.ColorUtil
 
-
 /**
  * ColorPicker with [SelectorRingHue] hue selector and [SelectorRectSaturationValueHSV]
  * saturation lightness Selector that uses [HSV](https://en.wikipedia.org/wiki/HSL_and_HSV)
@@ -48,11 +47,12 @@ fun ColorPickerRingRectHex(
     var saturation by remember { mutableStateOf(hsvArray[1]) }
     var value by remember { mutableStateOf(hsvArray[2]) }
 
-    val currentColor = Color.hsv(
-        hue = hue,
-        saturation = saturation,
-        value = value
-    )
+    val currentColor =
+        Color.hsv(
+            hue = hue,
+            saturation = saturation,
+            value = value
+        )
 
     onColorChange(currentColor, ColorUtil.colorToHexAlpha(currentColor))
 
@@ -60,9 +60,7 @@ fun ColorPickerRingRectHex(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
         Box(contentAlignment = Alignment.Center) {
-
             // Ring Shaped Hue Selector
             SelectorRingHue(
                 modifier = Modifier.fillMaxWidth(1f),
@@ -72,14 +70,15 @@ fun ColorPickerRingRectHex(
                 backgroundColor = Color.Transparent,
                 borderStrokeColor = Color.Transparent,
                 borderStrokeWidth = 0.dp,
-                selectionRadius = selectionRadius,
+                selectionRadius = selectionRadius
             ) { hueChange ->
                 hue = hueChange
             }
 
             // Rect Shaped Saturation and Lightness Selector
             SelectorRectSaturationValueHSV(
-                modifier = Modifier
+                modifier =
+                Modifier
                     .fillMaxWidth(.5f)
                     .aspectRatio(1f),
                 hue = hue,

@@ -48,7 +48,8 @@ fun ColorPickerRectHueLightnessHSL(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         SelectorRectHueLightnessHSL(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .fillMaxWidth()
                 .aspectRatio(4 / 3f),
             hue = hue,
@@ -57,7 +58,7 @@ fun ColorPickerRectHueLightnessHSL(
             onChange = { h, l ->
                 hue = h
                 lightness = l
-            },
+            }
         )
 
         Column(modifier = Modifier.padding(8.dp)) {

@@ -20,6 +20,7 @@ import com.smarttoolfactory.extendedcolors.util.fractionToRGBString
 /*
     HSV Slider Displays
  */
+
 /**
  * Composable that shows a title as initial letter, title color and a Slider to select
  * [hue] in [HSV](https://en.wikipedia.org/wiki/HSL_and_HSV) color model.
@@ -36,7 +37,6 @@ fun SliderDisplayHueHSV(
     @FloatRange(from = 0.0, to = 1.0) value: Float,
     onValueChange: (Float) -> Unit
 ) {
-
     TitledSliderDisplay(
         modifier = modifier,
         title = "Hue",
@@ -138,6 +138,7 @@ fun SliderDisplayAlphaHSV(
 /*
     HSL Slider Displays
  */
+
 /**
  * Composable that shows a title as initial letter, title color and a Slider to select
  * [hue] in [HSL](https://en.wikipedia.org/wiki/HSL_and_HSV) color model.
@@ -154,12 +155,10 @@ fun SliderDisplayHueHSL(
     @FloatRange(from = 0.0, to = 1.0) lightness: Float,
     onValueChange: (Float) -> Unit
 ) {
-
     TitledSliderDisplay(
         modifier = modifier,
         title = "Hue",
         description = "${hue.toInt()}°"
-
     ) {
         SliderHueHSL(
             hue = hue,
@@ -359,7 +358,6 @@ fun SliderDisplayAlphaRGB(
             green = green,
             blue = blue,
             alpha = alpha,
-
             onValueChange = onValueChange
         )
     }

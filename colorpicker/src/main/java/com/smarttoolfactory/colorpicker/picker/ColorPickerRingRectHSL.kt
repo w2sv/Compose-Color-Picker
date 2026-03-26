@@ -60,7 +60,6 @@ fun ColorPickerRingRectHSL(
     selectionRadius: Dp = 8.dp,
     onColorChange: (Color, String) -> Unit
 ) {
-
     var inputColorModel by remember { mutableStateOf(ColorModel.HSL) }
 
     val hslArray = colorToHSL(initialColor)
@@ -80,12 +79,12 @@ fun ColorPickerRingRectHSL(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-
         Spacer(modifier = Modifier.height(10.dp))
 
         // Initial and Current Colors
         ColorDisplayRoundedRect(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 50.dp, vertical = 10.dp),
             initialColor = initialColor,
@@ -93,7 +92,6 @@ fun ColorPickerRingRectHSL(
         )
 
         Box(contentAlignment = Alignment.Center) {
-
             // Ring Shaped Hue Selector
             SelectorRingHue(
                 modifier = Modifier.fillMaxWidth(1f),
@@ -103,14 +101,15 @@ fun ColorPickerRingRectHSL(
                 backgroundColor = ringBackgroundColor,
                 borderStrokeColor = ringBorderStrokeColor,
                 borderStrokeWidth = ringBorderStrokeWidth,
-                selectionRadius = selectionRadius,
+                selectionRadius = selectionRadius
             ) { hueChange ->
                 hue = hueChange
             }
 
             // Rect Shaped Saturation and Lightness Selector
             SelectorRectSaturationLightnessHSL(
-                modifier = Modifier
+                modifier =
+                Modifier
                     .fillMaxWidth(ringInnerRadiusFraction * .65f)
                     .aspectRatio(1f),
                 hue = hue,
@@ -135,7 +134,8 @@ fun ColorPickerRingRectHSL(
         // HSL-HSV-RGB Sliders
         CompositeSliderPanel(
             modifier = Modifier.padding(start = 10.dp, end = 7.dp),
-            compositeColor = ColorHSL(
+            compositeColor =
+            ColorHSL(
                 hue = hue,
                 saturation = saturation,
                 lightness = lightness,

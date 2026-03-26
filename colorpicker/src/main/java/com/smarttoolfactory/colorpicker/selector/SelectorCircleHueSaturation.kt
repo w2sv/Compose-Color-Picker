@@ -40,7 +40,6 @@ fun CircularHSVSelector(
     onChange: (Float, Float) -> Unit
 ) {
     BoxWithConstraints(modifier) {
-
         val density = LocalDensity.current.density
 
         // Check if user touches between the valid area of circle
@@ -56,62 +55,62 @@ fun CircularHSVSelector(
             mutableStateOf(center)
         }
 
-        currentPosition = calculatePositionFromAngleAndDistance(
-            distance = saturation * radius,
-            angle = hue,
-            center = center
-        )
+        currentPosition =
+            calculatePositionFromAngleAndDistance(
+                distance = saturation * radius,
+                angle = hue,
+                center = center
+            )
 
         val selectorRadius =
-            if (selectionRadius != Dp.Unspecified) selectionRadius.value * density
-            else width * .04f
+            if (selectionRadius != Dp.Unspecified) {
+                selectionRadius.value * density
+            } else {
+                width * .04f
+            }
 
-
-        val canvasModifier = Modifier
-            .pointerInput(Unit) {
-                detectMotionEvents(
-                    onDown = {
-                        val position = it.position
-
-                        // Distance from center to touch point
-                        val distance =
-                            calculateDistanceFromCenter(center, position).coerceAtMost(radius)
-
-                        // if distance is between inner and outer radius then we touched valid area
-                        isTouched = (distance < radius)
-
-                        if (isTouched) {
-                            val hueChange = calculateAngleFomLocalCoordinates(center, position)
-                            val saturationChange = (distance / radius).coerceIn(0f, 1f)
-                            onChange(hueChange, saturationChange)
-                            it.consume()
-                        }
-
-                    },
-                    onMove = {
-                        if (isTouched) {
-
+        val canvasModifier =
+            Modifier
+                .pointerInput(Unit) {
+                    detectMotionEvents(
+                        onDown = {
                             val position = it.position
-                            val hueChange = calculateAngleFomLocalCoordinates(center, position)
+
+                            // Distance from center to touch point
                             val distance =
                                 calculateDistanceFromCenter(center, position).coerceAtMost(radius)
 
-                            val saturationChange = (distance / radius).coerceIn(0f, 1f)
-                            onChange(hueChange, saturationChange)
-                            it.consume()
-                        }
+                            // if distance is between inner and outer radius then we touched valid area
+                            isTouched = (distance < radius)
 
-                    },
-                    onUp = {
-                        if (isTouched) {
-                            it.consume()
-                        }
-                        isTouched = false
+                            if (isTouched) {
+                                val hueChange = calculateAngleFomLocalCoordinates(center, position)
+                                val saturationChange = (distance / radius).coerceIn(0f, 1f)
+                                onChange(hueChange, saturationChange)
+                                it.consume()
+                            }
+                        },
+                        onMove = {
+                            if (isTouched) {
+                                val position = it.position
+                                val hueChange = calculateAngleFomLocalCoordinates(center, position)
+                                val distance =
+                                    calculateDistanceFromCenter(center, position).coerceAtMost(radius)
 
-                    },
-                    delayAfterDownInMillis = 20
-                )
-            }
+                                val saturationChange = (distance / radius).coerceIn(0f, 1f)
+                                onChange(hueChange, saturationChange)
+                                it.consume()
+                            }
+                        },
+                        onUp = {
+                            if (isTouched) {
+                                it.consume()
+                            }
+                            isTouched = false
+                        },
+                        delayAfterDownInMillis = 20
+                    )
+                }
 
         SelectorCircleImpl(
             modifier = canvasModifier,
@@ -128,14 +127,14 @@ private fun SelectorCircleImpl(
     selectorRadius: Float
 ) {
     val colorScaleHSVSweep = remember { Brush.sweepGradient(gradientColorScaleHSVReversed) }
-    val whiteToTransparentRadial = remember {
-        Brush.radialGradient(
-            colors = listOf(Color.White, Color(0x00FFFFFF))
-        )
-    }
+    val whiteToTransparentRadial =
+        remember {
+            Brush.radialGradient(
+                colors = listOf(Color.White, Color(0x00FFFFFF))
+            )
+        }
     Canvas(
         modifier = modifier.aspectRatio(1f)
-
     ) {
         // Draw hue selection circle with sweep gradient
         drawCircle(colorScaleHSVSweep)

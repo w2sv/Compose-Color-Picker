@@ -25,10 +25,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-
-//@ExperimentalCoroutinesApi
-//@Composable
-//fun M3ColorPicker(onColorChange: (Color) -> Unit) {
+// @ExperimentalCoroutinesApi
+// @Composable
+// fun M3ColorPicker(onColorChange: (Color) -> Unit) {
 //    Column(
 //        modifier = Modifier
 //            .fillMaxSize()
@@ -213,7 +212,7 @@ import androidx.compose.ui.unit.sp
 //        Spacer(modifier = Modifier.height(20.dp))
 //        ColorDisplayWithClipboard(colorData = ColorData(currentColor, colorName))
 //    }
-//}
+// }
 
 @Composable
 fun ColorSelectionGrid(
@@ -226,19 +225,20 @@ fun ColorSelectionGrid(
     colorKeys: List<Int>? = null,
     selected: (Int) -> Boolean,
     tint: (Int) -> Color,
-    onClick: (Int, Color) -> Unit,
+    onClick: (Int, Color) -> Unit
 ) {
     LazyVerticalGrid(
         modifier = modifier,
         columns = columns,
         contentPadding = contentPadding,
         verticalArrangement = verticalArrangement,
-        horizontalArrangement = horizontalArrangement,
+        horizontalArrangement = horizontalArrangement
     ) {
         itemsIndexed(colorSelectionList) { index: Int, item: Color ->
 
             ColorDisplayWithTitle(
-                modifier = Modifier
+                modifier =
+                Modifier
                     .aspectRatio(1f)
                     .clip(RoundedCornerShape(8.dp))
                     .aspectRatio(1f)
@@ -260,10 +260,10 @@ fun PrimaryAccentSelectionTab(
     selectedIndex: Int,
     onTabChange: (Int) -> Unit
 ) {
-
     val list = listOf("Primary", "Accent")
 
-    TabRow(selectedTabIndex = selectedIndex,
+    TabRow(
+        selectedTabIndex = selectedIndex,
         backgroundColor = Color.DarkGray,
         modifier = modifier.clip(RoundedCornerShape(10.dp)),
         indicator = {}
@@ -271,27 +271,35 @@ fun PrimaryAccentSelectionTab(
         list.forEachIndexed { index, text ->
             val selected = selectedIndex == index
             Tab(
-                modifier = if (selected) Modifier
-                    .clip(RoundedCornerShape(10.dp))
-                    .background(Color(0xff6FAAEE))
-                else Modifier
-                    .clip(RoundedCornerShape(10.dp))
-                    .background(Color.DarkGray),
+                modifier =
+                if (selected) {
+                    Modifier
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(Color(0xff6FAAEE))
+                } else {
+                    Modifier
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(Color.DarkGray)
+                },
                 selected = selected,
                 onClick = {
                     onTabChange(index)
                 },
                 text = {
                     Text(
-                        text = text, color = if (selected) Color.White
-                        else Color.White.copy(.5f)
+                        text = text,
+                        color =
+                        if (selected) {
+                            Color.White
+                        } else {
+                            Color.White.copy(.5f)
+                        }
                     )
                 }
             )
         }
     }
 }
-
 
 @Composable
 fun ColorDisplayWithTitle(
@@ -305,7 +313,8 @@ fun ColorDisplayWithTitle(
         contentAlignment = Alignment.Center
     ) {
         Box(
-            modifier = modifier
+            modifier =
+            modifier
                 .background(backgroundColor)
         )
 
@@ -315,7 +324,8 @@ fun ColorDisplayWithTitle(
 
         if (selected) {
             Icon(
-                modifier = modifier
+                modifier =
+                modifier
                     .background(tint.copy(alpha = .5f))
                     .padding(4.dp),
                 imageVector = Icons.Default.Check,

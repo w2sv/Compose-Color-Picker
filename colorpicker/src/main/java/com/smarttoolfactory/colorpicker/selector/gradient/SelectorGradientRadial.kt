@@ -13,13 +13,8 @@ import com.smarttoolfactory.colorpicker.model.GradientColorState
 import com.smarttoolfactory.colorpicker.ui.Pink400
 import com.smarttoolfactory.colorpicker.widget.ExpandableColumnWithTitle
 
-
 @Composable
-internal fun RadialGradientSelection(
-    gradientColorState: GradientColorState,
-    onRadialDimensionsChange: (Offset, Float) -> Unit
-) {
-
+internal fun RadialGradientSelection(gradientColorState: GradientColorState, onRadialDimensionsChange: (Offset, Float) -> Unit) {
     var centerX by remember { mutableStateOf(gradientColorState.centerFriction.x) }
     var centerY by remember { mutableStateOf(gradientColorState.centerFriction.y) }
     var radiusFriction by remember { mutableStateOf(gradientColorState.radiusFriction) }

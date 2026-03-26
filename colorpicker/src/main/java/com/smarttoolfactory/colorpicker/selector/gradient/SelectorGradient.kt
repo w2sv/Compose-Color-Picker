@@ -51,14 +51,17 @@ import com.smarttoolfactory.slider.SliderBrushColor
 import com.smarttoolfactory.slider.ui.InactiveTrackColor
 
 enum class GradientType {
-    Linear, Radial, Sweep
+    Linear,
+    Radial,
+    Sweep
 }
 
-internal val gradientOptions = listOf(
-    "Linear",
-    "Radial",
-    "Sweep"
-)
+internal val gradientOptions =
+    listOf(
+        "Linear",
+        "Radial",
+        "Sweep"
+    )
 
 internal val gradientTileModeOptions = listOf("Clamp", "Repeated", "Mirror", "Decal")
 
@@ -69,11 +72,9 @@ fun GradientSelector(
     gradientColorState: GradientColorState,
     onBrushChange: (Brush) -> Unit
 ) {
-
     Column(
         modifier = modifier
     ) {
-
         onBrushChange(gradientColorState.brush)
 
         GradientProperties(gradientColorState = gradientColorState)
@@ -124,7 +125,6 @@ fun GradientSelector(
 
 @Composable
 private fun GradientProperties(gradientColorState: GradientColorState) {
-
     var tileModeSelection by remember {
         mutableStateOf(
             when (gradientColorState.tileMode) {
@@ -145,13 +145,18 @@ private fun GradientProperties(gradientColorState: GradientColorState) {
             ExposedSelectionMenu(
                 index = gradientColorState.gradientType.ordinal,
                 title = "Gradient Type",
-                options = if (gradientColorState.size == Size.Zero) gradientOptions.subList(
-                    0,
-                    1
-                ) else gradientOptions,
+                options =
+                if (gradientColorState.size == Size.Zero) {
+                    gradientOptions.subList(
+                        0,
+                        1
+                    )
+                } else {
+                    gradientOptions
+                },
                 onSelected = {
                     gradientColorState.gradientType = GradientType.values()[it]
-                },
+                }
             )
 
             Spacer(modifier = Modifier.height(5.dp))
@@ -163,12 +168,13 @@ private fun GradientProperties(gradientColorState: GradientColorState) {
                     options = gradientTileModeOptions,
                     onSelected = {
                         tileModeSelection = it
-                        gradientColorState.tileMode = when (tileModeSelection) {
-                            0 -> TileMode.Clamp
-                            1 -> TileMode.Repeated
-                            2 -> TileMode.Mirror
-                            else -> TileMode.Decal
-                        }
+                        gradientColorState.tileMode =
+                            when (tileModeSelection) {
+                                0 -> TileMode.Clamp
+                                1 -> TileMode.Repeated
+                                2 -> TileMode.Mirror
+                                else -> TileMode.Decal
+                            }
                     }
                 )
             }
@@ -177,18 +183,15 @@ private fun GradientProperties(gradientColorState: GradientColorState) {
 }
 
 @Composable
-fun BrushDisplay(
-    modifier: Modifier = Modifier,
-    gradientColorState: GradientColorState
-) {
+fun BrushDisplay(modifier: Modifier = Modifier, gradientColorState: GradientColorState) {
     // Display Brush
     BoxWithConstraints(
-        modifier = modifier
+        modifier =
+        modifier
             .fillMaxWidth()
             .height(80.dp),
         contentAlignment = Alignment.Center
     ) {
-
         val size = gradientColorState.size
         val contentWidth = size.width.coerceAtLeast(2f)
         val contentHeight = size.height.coerceAtLeast(1f)
@@ -200,7 +203,6 @@ fun BrushDisplay(
         if (boxWidth > constraints.maxWidth) {
             boxWidth = constraints.maxWidth.toFloat()
             boxHeight = (boxWidth / contentAspectRatio)
-
         }
 
         val gradientType = gradientColorState.gradientType
@@ -210,10 +212,11 @@ fun BrushDisplay(
         val centerFriction = gradientColorState.centerFriction
         val radiusFriction = gradientColorState.radiusFriction
 
-        val center = Offset(
-            boxWidth * centerFriction.x,
-            boxHeight * centerFriction.y
-        )
+        val center =
+            Offset(
+                boxWidth * centerFriction.x,
+                boxHeight * centerFriction.y
+            )
 
         val boxWidthInDp: Dp
         val boxHeightInDp: Dp
@@ -224,40 +227,42 @@ fun BrushDisplay(
 
         val radius = (boxHeight * radiusFriction).coerceAtLeast(0.01f)
 
-        val brush = when (gradientType) {
-            GradientType.Linear -> {
-                if (colorStops.size == 1) {
-                    val brushColor = colorStops.first().second
-                    Brush.linearGradient(listOf(brushColor, brushColor))
-                } else {
-                    Brush.linearGradient(
+        val brush =
+            when (gradientType) {
+                GradientType.Linear -> {
+                    if (colorStops.size == 1) {
+                        val brushColor = colorStops.first().second
+                        Brush.linearGradient(listOf(brushColor, brushColor))
+                    } else {
+                        Brush.linearGradient(
+                            colorStops = colorStops.toTypedArray(),
+                            start = gradientOffset.start,
+                            end = gradientOffset.end,
+                            tileMode = tileMode
+                        )
+                    }
+                }
+
+                GradientType.Radial -> {
+                    Brush.radialGradient(
                         colorStops = colorStops.toTypedArray(),
-                        start = gradientOffset.start,
-                        end = gradientOffset.end,
+                        center = center,
+                        radius = radius,
                         tileMode = tileMode
+                    )
+                }
+
+                GradientType.Sweep -> {
+                    Brush.sweepGradient(
+                        colorStops = colorStops.toTypedArray(),
+                        center = center
                     )
                 }
             }
 
-            GradientType.Radial -> {
-                Brush.radialGradient(
-                    colorStops = colorStops.toTypedArray(),
-                    center = center,
-                    radius = radius,
-                    tileMode = tileMode
-                )
-            }
-
-            GradientType.Sweep -> {
-                Brush.sweepGradient(
-                    colorStops = colorStops.toTypedArray(),
-                    center = center
-                )
-            }
-        }
-
         Box(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .height(boxHeightInDp)
                 .width(boxWidthInDp)
                 .drawChecker(RoundedCornerShape(5.dp))
@@ -274,7 +279,6 @@ internal fun ColorStopSelection(
     onAddColorStop: (Pair<Float, Color>) -> Unit,
     onValueChange: (Int, Pair<Float, Color>) -> Unit
 ) {
-
     ExpandableColumnWithTitle(
         title = "Colors and Stops",
         color = Orange400
@@ -287,7 +291,6 @@ internal fun ColorStopSelection(
                     value = pair.first,
                     onRemoveClick = {
                         onRemoveClick(it)
-
                     },
                     onValueChange = { newPair: Pair<Float, Color> ->
                         onValueChange(index, newPair)
@@ -322,15 +325,16 @@ private fun GradientColorStopSelection(
     onValueChange: (Pair<Float, Color>) -> Unit
 ) {
     Row(
-        modifier = Modifier
+        modifier =
+        Modifier
             .fillMaxWidth()
             .padding(vertical = 2.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-
         Box(contentAlignment = Alignment.Center) {
             Box(
-                modifier = Modifier
+                modifier =
+                Modifier
                     .drawChecker(RoundedCornerShape(percent = 25))
                     .background(color)
                     .size(40.dp)
@@ -354,26 +358,30 @@ private fun GradientColorStopSelection(
             },
             thumbRadius = 10.dp,
             trackHeight = 8.dp,
-            colors = MaterialSliderDefaults.materialColors(
+            colors =
+            MaterialSliderDefaults.materialColors(
                 inactiveTrackColor = SliderBrushColor(InactiveTrackColor)
             )
         )
 
         Spacer(modifier = Modifier.width(4.dp))
         FloatingActionButton(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .padding(start = 4.dp, end = 4.dp)
                 .size(16.dp),
-            elevation = FloatingActionButtonDefaults.elevation(
+            elevation =
+            FloatingActionButtonDefaults.elevation(
                 defaultElevation = 0.dp
             ),
             backgroundColor = Red400,
             contentColor = Color.White,
-            onClick = { onRemoveClick(index) }) {
+            onClick = { onRemoveClick(index) }
+        ) {
             Icon(
                 modifier = Modifier.size(12.dp),
                 imageVector = Icons.Filled.Close,
-                contentDescription = "close",
+                contentDescription = "close"
             )
         }
     }

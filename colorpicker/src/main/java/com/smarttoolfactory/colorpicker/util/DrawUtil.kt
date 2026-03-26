@@ -7,7 +7,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.nativeCanvas
 
-
 /**
  * Draw 2 rectangles that blend with [BlendMode.Multiply] to draw saturation picker
  */
@@ -31,9 +30,7 @@ fun DrawScope.drawBlendingRectGradient(
 /**
  * Draw into layer
  */
-fun DrawScope.drawIntoLayer(
-    content: DrawScope.() -> Unit
-) {
+fun DrawScope.drawIntoLayer(content: DrawScope.() -> Unit) {
     with(drawContext.canvas.nativeCanvas) {
         val checkPoint = saveLayer(null, null)
         content()

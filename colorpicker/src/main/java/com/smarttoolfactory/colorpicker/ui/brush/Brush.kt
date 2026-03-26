@@ -5,48 +5,32 @@ import androidx.compose.ui.graphics.Color
 import com.smarttoolfactory.colorpicker.ui.Gray
 import com.smarttoolfactory.colorpicker.ui.WhiteTransparent
 
-
 /*
     Vertical Brushes for adding lightness or value to Rectangle Color pickers
  */
-fun transparentToBlackVerticalGradient(
-    startY: Float = 0.0f,
-    endY: Float = Float.POSITIVE_INFINITY
-): Brush {
-    return Brush.verticalGradient(
+fun transparentToBlackVerticalGradient(startY: Float = 0.0f, endY: Float = Float.POSITIVE_INFINITY): Brush =
+    Brush.verticalGradient(
         colors = listOf(Color.Transparent, Color.Black),
         startY = startY,
         endY = endY
     )
-}
 
-fun transparentToWhiteVerticalGradient(
-    startY: Float = 0.0f,
-    endY: Float = Float.POSITIVE_INFINITY
-): Brush {
-    return Brush.verticalGradient(
+fun transparentToWhiteVerticalGradient(startY: Float = 0.0f, endY: Float = Float.POSITIVE_INFINITY): Brush =
+    Brush.verticalGradient(
         colors = listOf(Color.Transparent, Color.White),
         startY = startY,
         endY = endY
     )
-}
 
-fun transparentToGrayVerticalGradient(
-    startY: Float = 0.0f,
-    endY: Float = Float.POSITIVE_INFINITY
-): Brush {
-    return Brush.verticalGradient(
+fun transparentToGrayVerticalGradient(startY: Float = 0.0f, endY: Float = Float.POSITIVE_INFINITY): Brush =
+    Brush.verticalGradient(
         colors = listOf(Color.Transparent, Gray),
         startY = startY,
         endY = endY
     )
-}
 
-fun whiteToTransparentToBlackVerticalGradient(
-    startY: Float = 0.0f,
-    endY: Float = Float.POSITIVE_INFINITY
-): Brush {
-    return Brush.verticalGradient(
+fun whiteToTransparentToBlackVerticalGradient(startY: Float = 0.0f, endY: Float = Float.POSITIVE_INFINITY): Brush =
+    Brush.verticalGradient(
         0.0f to Color.White,
         0.5f to WhiteTransparent,
         0.5f to Color.Transparent,
@@ -54,15 +38,10 @@ fun whiteToTransparentToBlackVerticalGradient(
         startY = startY,
         endY = endY
     )
-}
 
-fun whiteToBlackGradient(
-    startY: Float = 0.0f,
-    endY: Float = Float.POSITIVE_INFINITY
-): Brush {
-    return Brush.verticalGradient(
+fun whiteToBlackGradient(startY: Float = 0.0f, endY: Float = Float.POSITIVE_INFINITY): Brush =
+    Brush.verticalGradient(
         colors = listOf(Color.White, Color.Black),
         startY = startY,
         endY = endY
     )
-}

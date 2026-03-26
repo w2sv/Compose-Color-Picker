@@ -40,7 +40,6 @@ fun ColorPickerRingDiamondGradientHSLDialog(
     selectionRadius: Dp = 8.dp,
     onDismiss: (BrushColor) -> Unit
 ) {
-
     var brushColor: BrushColor by remember { mutableStateOf(initialBrushColor.copy()) }
 
     Dialog(
@@ -50,7 +49,8 @@ fun ColorPickerRingDiamondGradientHSLDialog(
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             ColorPickerGradientRingDiamondHSL(
-                modifier = Modifier
+                modifier =
+                Modifier
                     .fillMaxWidth()
                     .weight(1f)
                     .background(Color(0xcc212121), shape = RoundedCornerShape(5.dp))
@@ -94,7 +94,6 @@ fun ColorPickerRingRectGradientHSLDialog(
     selectionRadius: Dp = 8.dp,
     onDismiss: (BrushColor) -> Unit
 ) {
-
     var brushColor: BrushColor by remember { mutableStateOf(initialBrushColor.copy()) }
 
     Dialog(
@@ -104,7 +103,8 @@ fun ColorPickerRingRectGradientHSLDialog(
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             ColorPickerGradientRingRectHSL(
-                modifier = Modifier
+                modifier =
+                Modifier
                     .fillMaxWidth()
                     .weight(1f)
                     .background(Color(0xcc212121), shape = RoundedCornerShape(5.dp))
@@ -148,7 +148,6 @@ fun ColorPickerRingRectGradientHSVDialog(
     selectionRadius: Dp = 8.dp,
     onDismiss: (BrushColor) -> Unit
 ) {
-
     var brushColor: BrushColor by remember { mutableStateOf(initialBrushColor.copy()) }
 
     Dialog(
@@ -158,7 +157,8 @@ fun ColorPickerRingRectGradientHSVDialog(
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             ColorPickerGradientRingRectHSV(
-                modifier = Modifier
+                modifier =
+                Modifier
                     .fillMaxWidth()
                     .weight(1f)
                     .background(Color(0xcc212121), shape = RoundedCornerShape(5.dp))

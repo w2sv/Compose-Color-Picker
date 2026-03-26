@@ -50,10 +50,11 @@ fun SliderHueHSV(
     @FloatRange(from = 0.0, to = 1.0) value: Float,
     onValueChange: (Float) -> Unit
 ) {
-    val sliderHueSelectionHSLGradient = sliderHueHSVGradient(
-        saturation = saturation,
-        value = value,
-    )
+    val sliderHueSelectionHSLGradient =
+        sliderHueHSVGradient(
+            saturation = saturation,
+            value = value
+        )
 
     CheckeredColorfulSlider(
         modifier = modifier,
@@ -81,9 +82,11 @@ fun SliderSaturationHSV(
     @FloatRange(from = 0.0, to = 1.0) value: Float,
     onValueChange: (Float) -> Unit
 ) {
-    val sliderHueSelectionHSLGradient = sliderSaturationHSVGradient(
-        hue, value
-    )
+    val sliderHueSelectionHSLGradient =
+        sliderSaturationHSVGradient(
+            hue,
+            value
+        )
 
     CheckeredColorfulSlider(
         modifier = modifier,
@@ -108,7 +111,6 @@ fun SliderValueHSV(
     @FloatRange(from = 0.0, to = 1.0) value: Float,
     onValueChange: (Float) -> Unit
 ) {
-
     val sliderValueGradient = sliderValueGradient(hue = hue)
 
     CheckeredColorfulSlider(
@@ -163,11 +165,11 @@ fun SliderHueHSL(
     @FloatRange(from = 0.0, to = 1.0) lightness: Float,
     onValueChange: (Float) -> Unit
 ) {
-
-    val sliderHueSelectionHSLGradient = sliderHueHSLGradient(
-        saturation = saturation,
-        lightness = lightness,
-    )
+    val sliderHueSelectionHSLGradient =
+        sliderHueHSLGradient(
+            saturation = saturation,
+            lightness = lightness
+        )
 
     CheckeredColorfulSlider(
         modifier = modifier,
@@ -195,10 +197,11 @@ fun SliderSaturationHSL(
     @FloatRange(from = 0.0, to = 1.0) lightness: Float,
     onValueChange: (Float) -> Unit
 ) {
-
-    val sliderHueSelectionHSLGradient = sliderSaturationHSLGradient(
-        hue, lightness
-    )
+    val sliderHueSelectionHSLGradient =
+        sliderSaturationHSLGradient(
+            hue,
+            lightness
+        )
 
     CheckeredColorfulSlider(
         modifier = modifier,
@@ -380,10 +383,10 @@ fun CheckeredColorfulSlider(
         modifier = modifier,
         contentAlignment = Alignment.CenterStart
     ) {
-
         if (drawChecker) {
             Box(
-                modifier = Modifier
+                modifier =
+                Modifier
                     .width(maxWidth)
                     .height(11.dp)
                     .drawChecker(shape = RoundedCornerShape(6.dp))
@@ -400,7 +403,8 @@ fun CheckeredColorfulSlider(
             },
             valueRange = valueRange,
             coerceThumbInTrack = true,
-            colors = MaterialSliderDefaults.materialColors(
+            colors =
+            MaterialSliderDefaults.materialColors(
                 activeTrackColor = SliderBrushColor(brush = brush),
                 inactiveTrackColor = SliderBrushColor(color = Color.Transparent)
             ),

@@ -12,10 +12,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
  * @param center center of the selection circle
  * @param radius radius of the selection circle
  */
-fun DrawScope.drawHueSelectionCircle(
-    center: Offset,
-    radius: Float
-) {
+fun DrawScope.drawHueSelectionCircle(center: Offset, radius: Float) {
     drawCircle(
         Color.White,
         radius = radius,

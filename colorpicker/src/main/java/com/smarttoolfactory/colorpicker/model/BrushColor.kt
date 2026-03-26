@@ -4,14 +4,10 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 
-
 /**
  * Data class that contains [Brush] and [Color] and can return either based on user selection.
  */
-data class BrushColor(
-    var color: Color = Color.Unspecified,
-    var brush: Brush? = null
-) {
+data class BrushColor(var color: Color = Color.Unspecified, var brush: Brush? = null) {
     /**
      * [Brush] that is not **null** [brush] property or [SolidColor] that is not nullable and
      * contains [color] property as [SolidColor.value]

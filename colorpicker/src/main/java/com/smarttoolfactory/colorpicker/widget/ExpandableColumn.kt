@@ -45,9 +45,9 @@ fun ExpandableColumnWithTitle(
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = horizontalAlignment
     ) {
-
         Row(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .clickable { expanded = !expanded },
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -62,8 +62,12 @@ fun ExpandableColumnWithTitle(
             Spacer(modifier = Modifier.weight(1f))
 
             Icon(
-                imageVector = if (expanded) Icons.Filled.ExpandLess
-                else Icons.Filled.ExpandMore,
+                imageVector =
+                if (expanded) {
+                    Icons.Filled.ExpandLess
+                } else {
+                    Icons.Filled.ExpandMore
+                },
                 contentDescription = null,
                 tint = color
             )

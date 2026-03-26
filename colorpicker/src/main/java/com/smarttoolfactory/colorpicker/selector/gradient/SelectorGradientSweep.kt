@@ -14,10 +14,7 @@ import com.smarttoolfactory.colorpicker.ui.Pink400
 import com.smarttoolfactory.colorpicker.widget.ExpandableColumnWithTitle
 
 @Composable
-internal fun SweepGradientSelection(
-    gradientColorState: GradientColorState,
-    onCenterChange: (Offset) -> Unit
-) {
+internal fun SweepGradientSelection(gradientColorState: GradientColorState, onCenterChange: (Offset) -> Unit) {
     var centerX by remember { mutableStateOf(gradientColorState.centerFriction.x) }
     var centerY by remember { mutableStateOf(gradientColorState.centerFriction.y) }
 
@@ -47,4 +44,3 @@ internal fun SweepGradientSelection(
         }
     }
 }
-

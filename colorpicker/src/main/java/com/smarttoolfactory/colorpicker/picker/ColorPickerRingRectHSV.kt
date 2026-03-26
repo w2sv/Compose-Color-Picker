@@ -59,7 +59,6 @@ fun ColorPickerRingRectHSV(
     selectionRadius: Dp = 8.dp,
     onColorChange: (Color, String) -> Unit
 ) {
-
     var inputColorModel by remember { mutableStateOf(ColorModel.HSV) }
 
     val hsvArray = colorToHSV(initialColor)
@@ -79,12 +78,12 @@ fun ColorPickerRingRectHSV(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-
         Spacer(modifier = Modifier.height(10.dp))
 
         // Initial and Current Colors
         ColorDisplayRoundedRect(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 50.dp, vertical = 10.dp),
             initialColor = initialColor,
@@ -92,7 +91,6 @@ fun ColorPickerRingRectHSV(
         )
 
         Box(contentAlignment = Alignment.Center) {
-
             // Ring Shaped Hue Selector
             SelectorRingHue(
                 modifier = Modifier.fillMaxWidth(1f),
@@ -102,14 +100,15 @@ fun ColorPickerRingRectHSV(
                 backgroundColor = ringBackgroundColor,
                 borderStrokeColor = ringBorderStrokeColor,
                 borderStrokeWidth = ringBorderStrokeWidth,
-                selectionRadius = selectionRadius,
+                selectionRadius = selectionRadius
             ) { hueChange ->
                 hue = hueChange
             }
 
             // Rect Shaped Saturation and Lightness Selector
             SelectorRectSaturationValueHSV(
-                modifier = Modifier
+                modifier =
+                Modifier
                     .fillMaxWidth(ringInnerRadiusFraction * .65f)
                     .aspectRatio(1f),
                 hue = hue,
@@ -134,7 +133,8 @@ fun ColorPickerRingRectHSV(
         // HSL-HSV-RGB Sliders
         CompositeSliderPanel(
             modifier = Modifier.padding(start = 10.dp, end = 7.dp),
-            compositeColor = ColorHSV(
+            compositeColor =
+            ColorHSV(
                 hue = hue,
                 saturation = saturation,
                 value = value,
@@ -147,7 +147,6 @@ fun ColorPickerRingRectHSV(
                     value = color.value
                     alpha = color.alpha
                 }
-
             },
             showAlphaSlider = true,
             inputColorModel = inputColorModel,

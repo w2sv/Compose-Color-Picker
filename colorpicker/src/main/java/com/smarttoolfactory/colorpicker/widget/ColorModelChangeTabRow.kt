@@ -50,21 +50,23 @@ fun ColorModelChangeTabRow(
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
         modelList.forEachIndexed { index, s ->
-            Box(modifier = Modifier
-                .clickable(
-                    interactionSource = MutableInteractionSource(),
-                    indication = null,
-                    onClick = {
-                        selectedIndex = index
-                        val newColorModel = when (selectedIndex) {
-                            0 -> ColorModel.HSL
-                            1 -> ColorModel.HSV
-                            else -> ColorModel.RGB
+            Box(
+                modifier =
+                Modifier
+                    .clickable(
+                        interactionSource = MutableInteractionSource(),
+                        indication = null,
+                        onClick = {
+                            selectedIndex = index
+                            val newColorModel =
+                                when (selectedIndex) {
+                                    0 -> ColorModel.HSL
+                                    1 -> ColorModel.HSV
+                                    else -> ColorModel.RGB
+                                }
+                            onColorModelChange(newColorModel)
                         }
-                        onColorModelChange(newColorModel)
-                    }
-                )
-                .padding(10.dp)
+                    ).padding(10.dp)
             ) {
                 Text(
                     text = s,
@@ -100,7 +102,8 @@ fun ColorGradientModeChangeTabRow(
     }
 
     Row(
-        modifier = modifier
+        modifier =
+        modifier
             .fillMaxWidth()
             .padding(horizontal = 10.dp),
         horizontalArrangement = Arrangement.SpaceEvenly,
@@ -108,22 +111,23 @@ fun ColorGradientModeChangeTabRow(
     ) {
         modeList.forEachIndexed { index, s ->
             Box(
-                modifier = Modifier
+                modifier =
+                Modifier
                     .clickable(
                         interactionSource = MutableInteractionSource(),
                         indication = null,
                         onClick = {
                             selectedIndex = index
-                            val newColorMode = when (selectedIndex) {
-                                0 -> ColorMode.HSL
-                                1 -> ColorMode.HSV
-                                2 -> ColorMode.RGB
-                                else -> ColorMode.Gradient
-                            }
+                            val newColorMode =
+                                when (selectedIndex) {
+                                    0 -> ColorMode.HSL
+                                    1 -> ColorMode.HSV
+                                    2 -> ColorMode.RGB
+                                    else -> ColorMode.Gradient
+                                }
                             onColorModeChange(newColorMode)
                         }
-                    )
-                    .padding(10.dp),
+                    ).padding(10.dp),
                 contentAlignment = Alignment.Center
             ) {
                 if (index != 3) {
@@ -139,7 +143,6 @@ fun ColorGradientModeChangeTabRow(
                         borderColor = if (index == selectedIndex) Grey400 else Grey600
                     )
                 }
-
             }
         }
     }

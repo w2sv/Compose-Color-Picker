@@ -39,20 +39,21 @@ fun SelectorRectHueValueHSV(
     selectionRadius: Dp = Dp.Unspecified,
     onChange: (Float, Float) -> Unit
 ) {
-
     val selectorType = SelectorType.HVWithHSV
 
     //  Red, Magenta, Blue, Cyan, Green, Yellow, Red
-    val colorScaleHSLGradient = remember {
-        Brush.linearGradient(
-            colors = gradientColorScaleHSV,
-            start = Offset.Zero,
-            end = Offset(Float.POSITIVE_INFINITY, 0f)
-        )
-    }
-    val transparentToBlackGradient = remember {
-        transparentToBlackVerticalGradient()
-    }
+    val colorScaleHSLGradient =
+        remember {
+            Brush.linearGradient(
+                colors = gradientColorScaleHSV,
+                start = Offset.Zero,
+                end = Offset(Float.POSITIVE_INFINITY, 0f)
+            )
+        }
+    val transparentToBlackGradient =
+        remember {
+            transparentToBlackVerticalGradient()
+        }
 
     SelectorRect(
         modifier = modifier,
@@ -83,20 +84,21 @@ fun SelectorRectHueSaturationHSV(
     selectionRadius: Dp = Dp.Unspecified,
     onChange: (Float, Float) -> Unit
 ) {
-
     val selectorType = SelectorType.HSWithHSV
 
     //  Red, Magenta, Blue, Cyan, Green, Yellow, Red
-    val colorScaleHSLGradient = remember {
-        Brush.linearGradient(
-            colors = gradientColorScaleHSV,
-            start = Offset.Zero,
-            end = Offset(Float.POSITIVE_INFINITY, 0f)
-        )
-    }
-    val transparentToWhiteGradient = remember {
-        transparentToWhiteVerticalGradient()
-    }
+    val colorScaleHSLGradient =
+        remember {
+            Brush.linearGradient(
+                colors = gradientColorScaleHSV,
+                start = Offset.Zero,
+                end = Offset(Float.POSITIVE_INFINITY, 0f)
+            )
+        }
+    val transparentToWhiteGradient =
+        remember {
+            transparentToWhiteVerticalGradient()
+        }
 
     SelectorRect(
         modifier = modifier,
@@ -129,20 +131,21 @@ fun SelectorRectHueSaturationHSL(
     selectionRadius: Dp = Dp.Unspecified,
     onChange: (Float, Float) -> Unit
 ) {
-
     val selectorType = SelectorType.HSWithHSL
 
     //  Red, Magenta, Blue, Cyan, Green, Yellow, Red
-    val colorScaleHSLGradient = remember {
-        Brush.linearGradient(
-            colors = gradientColorScaleHSL,
-            start = Offset.Zero,
-            end = Offset(Float.POSITIVE_INFINITY, 0f)
-        )
-    }
-    val transparentToGrayGradient = remember {
-        transparentToGrayVerticalGradient()
-    }
+    val colorScaleHSLGradient =
+        remember {
+            Brush.linearGradient(
+                colors = gradientColorScaleHSL,
+                start = Offset.Zero,
+                end = Offset(Float.POSITIVE_INFINITY, 0f)
+            )
+        }
+    val transparentToGrayGradient =
+        remember {
+            transparentToGrayVerticalGradient()
+        }
 
     SelectorRect(
         modifier = modifier,
@@ -173,20 +176,21 @@ fun SelectorRectHueLightnessHSL(
     selectionRadius: Dp = Dp.Unspecified,
     onChange: (Float, Float) -> Unit
 ) {
-
     val selectorType = SelectorType.HLWithHSL
 
     //  Red, Magenta, Blue, Cyan, Green, Yellow, Red
-    val colorScaleHSLGradient = remember {
-        Brush.linearGradient(
-            colors = gradientColorScaleHSL,
-            start = Offset.Zero,
-            end = Offset(Float.POSITIVE_INFINITY, 0f)
-        )
-    }
-    val transitionGradient = remember {
-        whiteToTransparentToBlackVerticalGradient()
-    }
+    val colorScaleHSLGradient =
+        remember {
+            Brush.linearGradient(
+                colors = gradientColorScaleHSL,
+                start = Offset.Zero,
+                end = Offset(Float.POSITIVE_INFINITY, 0f)
+            )
+        }
+    val transitionGradient =
+        remember {
+            whiteToTransparentToBlackVerticalGradient()
+        }
 
     SelectorRect(
         modifier = modifier,
@@ -227,7 +231,6 @@ private fun SelectorRect(
     onChange: (Float, Float) -> Unit
 ) {
     BoxWithConstraints(modifier) {
-
         val density = LocalDensity.current.density
 
         val width = constraints.maxWidth.toFloat()
@@ -245,38 +248,43 @@ private fun SelectorRect(
         currentPosition = Offset(posX, posY)
 
         val selectorRadius =
-            if (selectionRadius != Dp.Unspecified) selectionRadius.value * density
-            else width.coerceAtMost(height) * .04f
-
-        val canvasModifier = Modifier
-            .pointerInput(Unit) {
-                detectMotionEvents(
-                    onDown = {
-                        val position = it.position
-                        val hueChange = (position.x / width).coerceIn(0f, 1f) * 360f
-                        val propertyChange = if (selectorType == SelectorType.HSWithHSV) {
-                            (position.y / height).coerceIn(0f, 1f)
-                        } else {
-                            (1 - (position.y / height)).coerceIn(0f, 1f)
-                        }
-                        onChange(hueChange, propertyChange)
-                        it.consume()
-
-                    },
-                    onMove = {
-                        val position = it.position
-                        val hueChange = (position.x / width).coerceIn(0f, 1f) * 360f
-                        val propertyChange = if (selectorType == SelectorType.HSWithHSV) {
-                            (position.y / height).coerceIn(0f, 1f)
-                        } else {
-                            (1 - (position.y / height)).coerceIn(0f, 1f)
-                        }
-                        onChange(hueChange, propertyChange)
-                        it.consume()
-                    },
-                    delayAfterDownInMillis = 20
-                )
+            if (selectionRadius != Dp.Unspecified) {
+                selectionRadius.value * density
+            } else {
+                width.coerceAtMost(height) * .04f
             }
+
+        val canvasModifier =
+            Modifier
+                .pointerInput(Unit) {
+                    detectMotionEvents(
+                        onDown = {
+                            val position = it.position
+                            val hueChange = (position.x / width).coerceIn(0f, 1f) * 360f
+                            val propertyChange =
+                                if (selectorType == SelectorType.HSWithHSV) {
+                                    (position.y / height).coerceIn(0f, 1f)
+                                } else {
+                                    (1 - (position.y / height)).coerceIn(0f, 1f)
+                                }
+                            onChange(hueChange, propertyChange)
+                            it.consume()
+                        },
+                        onMove = {
+                            val position = it.position
+                            val hueChange = (position.x / width).coerceIn(0f, 1f) * 360f
+                            val propertyChange =
+                                if (selectorType == SelectorType.HSWithHSV) {
+                                    (position.y / height).coerceIn(0f, 1f)
+                                } else {
+                                    (1 - (position.y / height)).coerceIn(0f, 1f)
+                                }
+                            onChange(hueChange, propertyChange)
+                            it.consume()
+                        },
+                        delayAfterDownInMillis = 20
+                    )
+                }
 
         SelectorRectImpl(
             modifier = canvasModifier,
@@ -285,7 +293,6 @@ private fun SelectorRect(
             brushProperty = brushProperty,
             selectorRadius = selectorRadius
         )
-
     }
 }
 
@@ -312,5 +319,8 @@ private fun SelectorRectImpl(
 }
 
 enum class SelectorType {
-    HLWithHSL, HSWithHSL, HSWithHSV, HVWithHSV
+    HLWithHSL,
+    HSWithHSL,
+    HSWithHSV,
+    HVWithHSV
 }
