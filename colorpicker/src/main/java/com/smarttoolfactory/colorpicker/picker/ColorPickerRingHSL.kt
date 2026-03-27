@@ -4,10 +4,8 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.LocalTextStyle
@@ -32,14 +30,13 @@ import com.smarttoolfactory.colorpicker.selector.SelectorDiamondSaturationLightn
 import com.smarttoolfactory.colorpicker.selector.SelectorRectSaturationLightnessHSL
 import com.smarttoolfactory.colorpicker.selector.SelectorRingHue
 import com.smarttoolfactory.colorpicker.slider.CompositeSliderPanel
-import com.smarttoolfactory.colorpicker.widget.ColorDisplayRoundedRect
 import com.smarttoolfactory.colorpicker.widget.ColorModelChangeTabRow
 import com.smarttoolfactory.extendedcolors.util.ColorUtil.colorToHSL
 
 @Preview
 @Composable
 private fun Prev() {
-    CompositionLocalProvider(androidx.compose.material.LocalTextStyle provides MaterialTheme.typography.bodyLarge) {
+    CompositionLocalProvider(LocalTextStyle provides MaterialTheme.typography.bodyLarge) {
         ColorPickerRingHSL(
             initialColor = Color.Red,
             colorModel = ColorModel.RGB,

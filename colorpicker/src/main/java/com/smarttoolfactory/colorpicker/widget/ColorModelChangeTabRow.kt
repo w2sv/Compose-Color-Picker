@@ -8,9 +8,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -36,7 +37,7 @@ fun ColorModelChangeTabRow(
     onColorModelChange: (ColorModel) -> Unit
 ) {
     var selectedIndex by remember {
-        mutableStateOf(
+        mutableIntStateOf(
             when (colorModel) {
                 ColorModel.HSL -> 0
                 ColorModel.HSV -> 1
