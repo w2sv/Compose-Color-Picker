@@ -8,7 +8,6 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile>().configureEa
     compilerOptions {
         freeCompilerArgs.addAll(
             "-Xannotation-default-target=param-property",
-            "-Xexplicit-backing-fields",
             "-Xcontext-sensitive-resolution",
             "-Xcontext-parameters"
         )

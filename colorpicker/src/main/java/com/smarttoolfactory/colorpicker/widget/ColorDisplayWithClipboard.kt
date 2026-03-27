@@ -97,6 +97,7 @@ import kotlin.math.roundToInt
 //    }
 // }
 
+@Suppress("DEPRECATION")
 @Composable
 fun ColorDisplayWithClipboard(modifier: Modifier = Modifier, color: Color) {
     val clipboardManager = LocalClipboardManager.current

@@ -44,13 +44,12 @@ import com.smarttoolfactory.extendedcolors.util.ColorUtil
 import com.smarttoolfactory.extendedcolors.util.HexUtil
 import com.w2sv.colorpicker.R
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.mapLatest
 
 /**
- * [TextField] that displays color in hex representation either with #RRGGBB or #AARRGGBB
+ * [BasicTextField] that displays color in hex representation either with #RRGGBB or #AARRGGBB
  * depending on [useAlpha] flag and with [LocalClipboardManager] to save hex to clipboard.
  *
  * @param hexString string in hex format.
@@ -60,6 +59,7 @@ import kotlinx.coroutines.flow.mapLatest
  * @param onColorChange when user type valid 6 or 8 char hex returns a [Color] associated
  * with the hex string.
  */
+@Suppress("DEPRECATION")
 @Composable
 fun HexTextFieldWithClipboard(
     modifier: Modifier = Modifier,
@@ -114,15 +114,13 @@ fun HexTextFieldWithClipboard(
         verticalAlignment = Alignment.CenterVertically
     ) {
         BasicTextField(
-            modifier =
-            Modifier
+            modifier = Modifier
                 .width(140.dp)
                 .wrapContentHeight()
                 .padding(bottom = 10.dp, top = 12.dp),
             visualTransformation = HexVisualTransformation(useAlpha),
             value = hexString.removePrefix("#"),
-            textStyle =
-            TextStyle(
+            textStyle = TextStyle(
                 color = textColor,
                 fontSize = 20.sp
             ),
@@ -172,7 +170,7 @@ fun HexTextFieldWithClipboard(
 }
 
 /**
- * [TextField] that displays color in hex representation either with #RRGGBB
+ * [BasicTextField] that displays color in hex representation either with #RRGGBB
  * with [LocalClipboardManager] to save hex to clipboard and displays when 6 characters input
  * displays name closest to R, G, B values in 3D space.
  *
@@ -182,7 +180,7 @@ fun HexTextFieldWithClipboard(
  * @param onColorChange when user type valid 6 or 8 char hex returns a [Color] associated
  * with the hex string.
  */
-@OptIn(ExperimentalCoroutinesApi::class)
+@Suppress("DEPRECATION")
 @Composable
 fun HexTextFieldWithLabelClipboard(
     modifier: Modifier = Modifier,
@@ -200,16 +198,15 @@ fun HexTextFieldWithLabelClipboard(
     val currentRegex = hexRegex
     val isHexValid = currentRegex.matches(hexText.value)
 
-    val color =
-        remember {
-            derivedStateOf {
-                try {
-                    HexUtil.hexToColor(hexText.value)
-                } catch (e: Exception) {
-                    Color.Unspecified
-                }
+    val color = remember {
+        derivedStateOf {
+            try {
+                HexUtil.hexToColor(hexText.value)
+            } catch (e: Exception) {
+                Color.Unspecified
             }
         }
+    }
 
     val lightness = ColorUtil.colorToHSL(color.value)[2]
 
@@ -230,10 +227,9 @@ fun HexTextFieldWithLabelClipboard(
                 } else {
                     ""
                 }
-            }.flowOn(Dispatchers.Default)
-            .collect { name: String ->
-                colorName = name
             }
+            .flowOn(Dispatchers.Default)
+            .collect { name: String -> colorName = name }
     }
 
     val hexModifier =
