@@ -1,5 +1,6 @@
 package com.smarttoolfactory.colorpicker.picker
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,14 +10,20 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.smarttoolfactory.colorpicker.model.ColorHSL
@@ -27,8 +34,22 @@ import com.smarttoolfactory.colorpicker.selector.SelectorRingHue
 import com.smarttoolfactory.colorpicker.slider.CompositeSliderPanel
 import com.smarttoolfactory.colorpicker.widget.ColorDisplayRoundedRect
 import com.smarttoolfactory.colorpicker.widget.ColorModelChangeTabRow
-import com.smarttoolfactory.extendedcolors.util.ColorUtil
 import com.smarttoolfactory.extendedcolors.util.ColorUtil.colorToHSL
+
+@Preview
+@Composable
+private fun Prev() {
+    CompositionLocalProvider(androidx.compose.material.LocalTextStyle provides MaterialTheme.typography.bodyLarge) {
+        ColorPickerRingHSL(
+            initialColor = Color.Red,
+            colorModel = ColorModel.RGB,
+            ringOuterRadiusFraction = .85f,
+            showAlphaSlider = false,
+            isColorModelSelectable = false,
+            onColorChange = {}
+        )
+    }
+}
 
 /**
  * ColorPicker with [SelectorRingHue] hue selector and [SelectorRectSaturationLightnessHSL]
@@ -49,48 +70,46 @@ import com.smarttoolfactory.extendedcolors.util.ColorUtil.colorToHSL
  * [SelectorDiamondSaturationLightnessHSL] or [CompositeSliderPanel]
  */
 @Composable
-fun ColorPickerRingRectHSL(
-    modifier: Modifier = Modifier,
+fun ColorPickerRingHSL(
     initialColor: Color,
+    colorModel: ColorModel,
+    modifier: Modifier = Modifier,
+    saturationLightnessSelectorShape: SaturationLightnessSelectorShape = SaturationLightnessSelectorShape.Rect,
     ringOuterRadiusFraction: Float = .9f,
     ringInnerRadiusFraction: Float = .6f,
     ringBackgroundColor: Color = Color.Transparent,
     ringBorderStrokeColor: Color = Color.Black,
-    ringBorderStrokeWidth: Dp = 4.dp,
+    ringBorderStrokeWidth: Dp = 1.dp,
     selectionRadius: Dp = 8.dp,
-    onColorChange: (Color, String) -> Unit
+    showAlphaSlider: Boolean = true,
+    isColorModelSelectable: Boolean = true,
+    onColorChange: (Color) -> Unit
 ) {
-    var inputColorModel by remember { mutableStateOf(ColorModel.HSL) }
+    var inputColorModel by remember(colorModel) { mutableStateOf(colorModel) }
 
     val hslArray = colorToHSL(initialColor)
 
-    var hue by remember { mutableStateOf(hslArray[0]) }
-    var saturation by remember { mutableStateOf(hslArray[1]) }
-    var lightness by remember { mutableStateOf(hslArray[2]) }
-    var alpha by remember { mutableStateOf(initialColor.alpha) }
+    var hue by remember { mutableFloatStateOf(hslArray[0]) }
+    var saturation by remember { mutableFloatStateOf(hslArray[1]) }
+    var lightness by remember { mutableFloatStateOf(hslArray[2]) }
+    var alpha by remember { mutableFloatStateOf(initialColor.alpha) }
 
-    val currentColor =
-        Color.hsl(hue = hue, saturation = saturation, lightness = lightness, alpha = alpha)
+    val currentColor = remember(hue, saturation, lightness, alpha) {
+        Color.hsl(
+            hue = hue,
+            saturation = saturation,
+            lightness = lightness,
+            alpha = alpha
+        )
+    }
 
-    onColorChange(currentColor, ColorUtil.colorToHexAlpha(currentColor))
+    LaunchedEffect(hue, saturation, lightness, alpha) { onColorChange(currentColor) }
 
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Spacer(modifier = Modifier.height(10.dp))
-
-        // Initial and Current Colors
-        ColorDisplayRoundedRect(
-            modifier =
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 50.dp, vertical = 10.dp),
-            initialColor = initialColor,
-            currentColor = currentColor
-        )
-
         Box(contentAlignment = Alignment.Center) {
             // Ring Shaped Hue Selector
             SelectorRingHue(
@@ -101,41 +120,55 @@ fun ColorPickerRingRectHSL(
                 backgroundColor = ringBackgroundColor,
                 borderStrokeColor = ringBorderStrokeColor,
                 borderStrokeWidth = ringBorderStrokeWidth,
-                selectionRadius = selectionRadius
-            ) { hueChange ->
-                hue = hueChange
-            }
+                selectionRadius = selectionRadius,
+                onChange = { hue = it }
+            )
 
-            // Rect Shaped Saturation and Lightness Selector
-            SelectorRectSaturationLightnessHSL(
-                modifier =
-                Modifier
-                    .fillMaxWidth(ringInnerRadiusFraction * .65f)
-                    .aspectRatio(1f),
-                hue = hue,
-                saturation = saturation,
-                lightness = lightness,
-                selectionRadius = selectionRadius
-            ) { s, l ->
-                saturation = s
-                lightness = l
+            // Saturation Lightness Selector
+            AnimatedContent(saturationLightnessSelectorShape) { shape ->
+                when (shape) {
+                    SaturationLightnessSelectorShape.Rect ->
+                        SelectorRectSaturationLightnessHSL(
+                            modifier = Modifier
+                                .fillMaxWidth(ringInnerRadiusFraction * .65f)
+                                .aspectRatio(1f),
+                            hue = hue,
+                            saturation = saturation,
+                            lightness = lightness,
+                            selectionRadius = selectionRadius
+                        ) { s, l ->
+                            saturation = s
+                            lightness = l
+                        }
+
+                    SaturationLightnessSelectorShape.Diamond ->
+                        SelectorDiamondSaturationLightnessHSL(
+                            modifier = Modifier.fillMaxWidth(ringInnerRadiusFraction * .9f),
+                            hue = hue,
+                            saturation = saturation,
+                            lightness = lightness,
+                            selectionRadius = selectionRadius
+                        ) { s, l ->
+                            saturation = s
+                            lightness = l
+                        }
+                }
             }
         }
 
         // HSL-HSV-RGB Color Model Change Tabs
-        ColorModelChangeTabRow(
-            modifier = Modifier.width(350.dp),
-            colorModel = inputColorModel,
-            onColorModelChange = {
-                inputColorModel = it
-            }
-        )
+        if (isColorModelSelectable) {
+            ColorModelChangeTabRow(
+                modifier = Modifier.width(350.dp),
+                colorModel = inputColorModel,
+                onColorModelChange = { inputColorModel = it }
+            )
+        }
 
         // HSL-HSV-RGB Sliders
         CompositeSliderPanel(
             modifier = Modifier.padding(start = 10.dp, end = 7.dp),
-            compositeColor =
-            ColorHSL(
+            compositeColor = ColorHSL(
                 hue = hue,
                 saturation = saturation,
                 lightness = lightness,
@@ -149,7 +182,7 @@ fun ColorPickerRingRectHSL(
                     alpha = color.alpha
                 }
             },
-            showAlphaSlider = true,
+            showAlphaSlider = showAlphaSlider,
             inputColorModel = inputColorModel,
             outputColorModel = ColorModel.HSL
         )

@@ -1,6 +1,7 @@
 package com.smarttoolfactory.colorpicker.slider
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.smarttoolfactory.colorpicker.model.ColorHSL
 import com.smarttoolfactory.colorpicker.model.ColorHSV
@@ -40,38 +41,32 @@ fun CompositeSliderPanel(
     outputColorModel: ColorModel,
     showAlphaSlider: Boolean = true
 ) {
-    val inputColor = convertColor(inputColorModel, compositeColor)
+    val inputColor = remember(inputColorModel, compositeColor) { convertColor(inputColorModel, compositeColor) }
 
-    when (inputColorModel) {
-        ColorModel.HSL -> {
+    when (inputColor) {
+        is ColorHSL -> {
             CompositeSliderPanelHSL(
                 modifier = modifier,
-                compositeColor = inputColor as ColorHSL,
-                onColorChange = {
-                    onColorChange(convertColor(colorModel = outputColorModel, it))
-                },
+                compositeColor = inputColor,
+                onColorChange = { onColorChange(convertColor(colorModel = outputColorModel, it)) },
                 showAlphaSlider = showAlphaSlider
             )
         }
 
-        ColorModel.HSV -> {
+        is ColorHSV -> {
             CompositeSliderPanelHSV(
                 modifier = modifier,
-                compositeColor = inputColor as ColorHSV,
-                onColorChange = {
-                    onColorChange(convertColor(colorModel = outputColorModel, it))
-                },
+                compositeColor = inputColor,
+                onColorChange = { onColorChange(convertColor(colorModel = outputColorModel, it)) },
                 showAlphaSlider = showAlphaSlider
             )
         }
 
-        ColorModel.RGB -> {
+        is ColorRGB -> {
             CompositeSliderPanelRGB(
                 modifier = modifier,
-                compositeColor = inputColor as ColorRGB,
-                onColorChange = {
-                    onColorChange(convertColor(colorModel = outputColorModel, it))
-                },
+                compositeColor = inputColor,
+                onColorChange = { onColorChange(convertColor(colorModel = outputColorModel, it)) },
                 showAlphaSlider = showAlphaSlider
             )
         }
@@ -82,9 +77,7 @@ fun convertColor(colorModel: ColorModel, compositeColor: CompositeColor): Compos
     when (colorModel) {
         ColorModel.HSL -> {
             when (compositeColor) {
-                is ColorHSL -> {
-                    compositeColor
-                }
+                is ColorHSL -> compositeColor
 
                 is ColorHSV -> {
                     val hue = compositeColor.hue
@@ -114,8 +107,6 @@ fun convertColor(colorModel: ColorModel, compositeColor: CompositeColor): Compos
                         alpha
                     )
                 }
-
-                else -> ColorHSL.Unspecified
             }
         }
 
@@ -136,9 +127,7 @@ fun convertColor(colorModel: ColorModel, compositeColor: CompositeColor): Compos
                     )
                 }
 
-                is ColorHSV -> {
-                    compositeColor
-                }
+                is ColorHSV -> compositeColor
 
                 is ColorRGB -> {
                     val red = compositeColor.red
@@ -154,8 +143,6 @@ fun convertColor(colorModel: ColorModel, compositeColor: CompositeColor): Compos
                         alpha
                     )
                 }
-
-                else -> ColorHSV.Unspecified
             }
         }
 
@@ -192,11 +179,7 @@ fun convertColor(colorModel: ColorModel, compositeColor: CompositeColor): Compos
                     )
                 }
 
-                is ColorRGB -> {
-                    compositeColor
-                }
-
-                else -> ColorRGB.Unspecified
+                is ColorRGB -> compositeColor
             }
         }
     }
