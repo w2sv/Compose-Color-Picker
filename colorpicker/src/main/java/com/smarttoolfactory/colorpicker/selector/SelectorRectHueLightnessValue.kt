@@ -1,5 +1,6 @@
 package com.smarttoolfactory.colorpicker.selector
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import com.smarttoolfactory.colorpicker.ui.brush.transparentToBlackVerticalGradient
 import com.smarttoolfactory.colorpicker.ui.brush.transparentToGrayVerticalGradient
@@ -21,6 +21,7 @@ import com.smarttoolfactory.colorpicker.ui.brush.whiteToTransparentToBlackVertic
 import com.smarttoolfactory.colorpicker.ui.gradientColorScaleHSL
 import com.smarttoolfactory.colorpicker.ui.gradientColorScaleHSV
 import com.smarttoolfactory.gesture.detectMotionEvents
+import com.w2sv.composed.core.extensions.toPx
 
 /**
  * Rectangle Hue and Value selector for
@@ -219,6 +220,7 @@ fun SelectorRectHueLightnessHSL(
  * or Hue-Saturation or Hue-Value for HSV
  * @param onChange callback that triggered when input position on selector has changed
  */
+@SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
 private fun SelectorRect(
     modifier: Modifier = Modifier,
@@ -231,17 +233,13 @@ private fun SelectorRect(
     onChange: (Float, Float) -> Unit
 ) {
     BoxWithConstraints(modifier) {
-        val density = LocalDensity.current.density
-
         val width = constraints.maxWidth.toFloat()
         val height = constraints.maxHeight.toFloat()
 
         // Center position of color picker
         val center = Offset(width / 2, height / 2)
 
-        var currentPosition by remember {
-            mutableStateOf(center)
-        }
+        var currentPosition by remember { mutableStateOf(center) }
 
         val posX = hue / 360 * width
         val posY = (1 - property) * height
@@ -249,7 +247,7 @@ private fun SelectorRect(
 
         val selectorRadius =
             if (selectionRadius != Dp.Unspecified) {
-                selectionRadius.value * density
+                selectionRadius.toPx()
             } else {
                 width.coerceAtMost(height) * .04f
             }

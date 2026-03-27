@@ -294,10 +294,9 @@ fun SliderWithCircleDisplay(
         verticalAlignment = Alignment.CenterVertically
     ) {
         CircleDisplay(
-            modifier =
-                circleModifier
-                    .widthIn(min = 70.dp)
-                    .heightIn(min = 70.dp),
+            modifier = circleModifier
+                .widthIn(min = 70.dp)
+                .heightIn(min = 70.dp),
             color = color
         )
         Spacer(modifier = Modifier.width(10.dp))

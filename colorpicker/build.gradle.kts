@@ -33,4 +33,5 @@ dependencies {
     implementation(libs.stf.compose.extended.gestures)
     implementation(libs.stf.compose.extended.colors)
     implementation(libs.stf.compose.colorful.sliders)
+    implementation(libs.w2sv.composed.core)
 }

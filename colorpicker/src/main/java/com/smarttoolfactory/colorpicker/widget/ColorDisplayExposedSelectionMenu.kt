@@ -57,18 +57,17 @@ fun ColorDisplayExposedSelectionMenu(
         ExposedSelectionMenu(
             modifier = Modifier.width(100.dp),
             index = selectedIndex,
-            textFieldColors =
-                ExposedDropdownMenuDefaults.textFieldColors(
-                    backgroundColor = Color.Transparent,
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent,
-                    disabledIndicatorColor = Color.Transparent,
-                    focusedLabelColor = textColor,
-                    unfocusedLabelColor = textColor,
-                    trailingIconColor = textColor,
-                    focusedTrailingIconColor = textColor,
-                    textColor = textColor
-                ),
+            textFieldColors = ExposedDropdownMenuDefaults.textFieldColors(
+                backgroundColor = Color.Transparent,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                disabledIndicatorColor = Color.Transparent,
+                focusedLabelColor = textColor,
+                unfocusedLabelColor = textColor,
+                trailingIconColor = textColor,
+                focusedTrailingIconColor = textColor,
+                textColor = textColor
+            ),
             dropdownMenuItemColors = dropdownMenuItemColors,
             options = ColorModel.entries.map { it.name },
             onSelected = {

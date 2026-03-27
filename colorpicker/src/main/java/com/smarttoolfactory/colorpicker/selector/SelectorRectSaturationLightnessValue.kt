@@ -1,5 +1,6 @@
 package com.smarttoolfactory.colorpicker.selector
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,7 +14,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import com.smarttoolfactory.colorpicker.model.ColorModel
 import com.smarttoolfactory.colorpicker.ui.brush.lightnessGradient
@@ -22,6 +22,7 @@ import com.smarttoolfactory.colorpicker.ui.brush.saturationHSVGradient
 import com.smarttoolfactory.colorpicker.ui.brush.valueGradient
 import com.smarttoolfactory.colorpicker.util.drawBlendingRectGradient
 import com.smarttoolfactory.gesture.detectMotionEvents
+import com.w2sv.composed.core.extensions.toPx
 
 /**
  * Rectangle Saturation and Lightness selector for
@@ -89,6 +90,7 @@ fun SelectorRectSaturationValueHSV(
     )
 }
 
+@SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
 private fun SelectorRect(
     modifier: Modifier = Modifier,
@@ -101,7 +103,6 @@ private fun SelectorRect(
     colorModel: ColorModel
 ) {
     BoxWithConstraints(modifier) {
-        val density = LocalDensity.current.density
         val width = constraints.maxWidth.toFloat()
         val height = constraints.maxHeight.toFloat()
 
@@ -111,50 +112,46 @@ private fun SelectorRect(
         /**
          * Circle selector radius for setting [saturation] and [property] by gesture
          */
-        val selectorRadius =
-            if (selectionRadius != Dp.Unspecified) {
-                selectionRadius.value * density
-            } else {
-                width.coerceAtMost(height) * .04f
-            }
+        val selectorRadius = if (selectionRadius != Dp.Unspecified) {
+            selectionRadius.toPx()
+        } else {
+            width.coerceAtMost(height) * .04f
+        }
 
         /**
          *  Current position is initially set by [saturation] and [property] that is bound
-         *  in diamond since (1,1) points to bottom left corner of a rectangle but it's bounded
+         *  in diamond since (1,1) points to bottom left corner of a rectangle, but it's bounded
          *  in diamond by [setSelectorPositionFromColorParams].
          *  When user touches anywhere in diamond current position is updated and
          *  this composable is recomposed
          */
-        var currentPosition by remember {
-            mutableStateOf(center)
-        }
+        var currentPosition by remember { mutableStateOf(center) }
 
         val posX = saturation * width
         val posY = (1 - property) * height
         currentPosition = Offset(posX, posY)
 
-        val canvasModifier =
-            Modifier
-                .fillMaxSize()
-                .pointerInput(Unit) {
-                    detectMotionEvents(
-                        onDown = {
-                            val position = it.position
-                            val saturationChange = (position.x / width).coerceIn(0f, 1f)
-                            val valueChange = (1 - (position.y / height)).coerceIn(0f, 1f)
-                            onChange(saturationChange, valueChange)
-                            it.consume()
-                        },
-                        onMove = {
-                            val position = it.position
-                            val saturationChange = (position.x / width).coerceIn(0f, 1f)
-                            val valueChange = (1 - (position.y / height)).coerceIn(0f, 1f)
-                            onChange(saturationChange, valueChange)
-                            it.consume()
-                        },
-                        delayAfterDownInMillis = 20
-                    )
-                }
+        val canvasModifier = Modifier
+            .fillMaxSize()
+            .pointerInput(Unit) {
+                detectMotionEvents(
+                    onDown = {
+                        val position = it.position
+                        val saturationChange = (position.x / width).coerceIn(0f, 1f)
+                        val valueChange = (1 - (position.y / height)).coerceIn(0f, 1f)
+                        onChange(saturationChange, valueChange)
+                        it.consume()
+                    },
+                    onMove = {
+                        val position = it.position
+                        val saturationChange = (position.x / width).coerceIn(0f, 1f)
+                        val valueChange = (1 - (position.y / height)).coerceIn(0f, 1f)
+                        onChange(saturationChange, valueChange)
+                        it.consume()
+                    },
+                    delayAfterDownInMillis = 20
+                )
+            }
 
         SelectorRectImpl(
             modifier = canvasModifier,

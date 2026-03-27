@@ -1,5 +1,6 @@
 package com.smarttoolfactory.colorpicker.selector
 
+import android.annotation.SuppressLint
 import androidx.annotation.FloatRange
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
@@ -19,13 +20,13 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import com.smarttoolfactory.colorpicker.model.ColorModel
 import com.smarttoolfactory.colorpicker.ui.GradientAngle
 import com.smarttoolfactory.colorpicker.ui.GradientOffset
 import com.smarttoolfactory.colorpicker.util.drawIntoLayer
 import com.smarttoolfactory.gesture.detectMotionEvents
+import com.w2sv.composed.core.extensions.toPx
 
 /**
  * Saturation and Lightness selector in shape of *diamond* for
@@ -49,6 +50,7 @@ import com.smarttoolfactory.gesture.detectMotionEvents
  *  when position of touch in this selector has changed.
  *
  */
+@SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
 fun SelectorDiamondSaturationLightnessHSL(
     modifier: Modifier = Modifier,
@@ -58,53 +60,46 @@ fun SelectorDiamondSaturationLightnessHSL(
     selectionRadius: Dp = Dp.Unspecified,
     onChange: (Float, Float) -> Unit
 ) {
-    val lightnessGradient =
-        remember(hue) {
-            Brush.verticalGradient(
-                colors =
-                listOf(
-                    Color.hsl(hue = hue, saturation = .5f, lightness = 1f),
-                    Color.hsl(hue = hue, saturation = .5f, lightness = 0f)
-                )
+    val lightnessGradient = remember(hue) {
+        Brush.verticalGradient(
+            colors = listOf(
+                Color.hsl(hue = hue, saturation = .5f, lightness = 1f),
+                Color.hsl(hue = hue, saturation = .5f, lightness = 0f)
             )
-        }
+        )
+    }
 
-    val saturationHSLGradient =
-        remember(hue) {
-            val gradientOffset = GradientOffset(GradientAngle.CW0)
+    val saturationHSLGradient = remember(hue) {
+        val gradientOffset = GradientOffset(GradientAngle.CW0)
 
-            Brush.linearGradient(
-                colors =
-                listOf(
-                    Color.hsl(hue, 0f, .5f),
-                    Color.hsl(hue, 1f, .5f)
-                ),
-                start = gradientOffset.start,
-                end = gradientOffset.end
-            )
-        }
+        Brush.linearGradient(
+            colors = listOf(
+                Color.hsl(hue, 0f, .5f),
+                Color.hsl(hue, 1f, .5f)
+            ),
+            start = gradientOffset.start,
+            end = gradientOffset.end
+        )
+    }
 
     BoxWithConstraints(
         modifier = modifier,
         contentAlignment = Alignment.Center
     ) {
-        val density = LocalDensity.current.density
-
         /**
          * Width and height of the diamond is geometrically equal so it's sufficient to
          * use either width or height to have a length parameter
          */
-        val length = maxWidth.value * density
+        val length = maxWidth.toPx()
 
         /**
          * Circle selector radius for setting [saturation] and [lightness] by gesture
          */
-        val selectorRadius =
-            if (selectionRadius != Dp.Unspecified) {
-                selectionRadius.value * density
-            } else {
-                length * .04f
-            }
+        val selectorRadius = if (selectionRadius != Dp.Unspecified) {
+            selectionRadius.toPx()
+        } else {
+            length * .04f
+        }
 
         SelectorDiamond(
             saturation = saturation,
@@ -312,11 +307,11 @@ private fun SelectorDiamondImpl(
                 path = diamondPath,
                 brushSrc,
                 blendMode =
-                if (colorModel == ColorModel.HSV) {
-                    BlendMode.Multiply
-                } else {
-                    BlendMode.Overlay
-                }
+                    if (colorModel == ColorModel.HSV) {
+                        BlendMode.Multiply
+                    } else {
+                        BlendMode.Overlay
+                    }
             )
         }
 

@@ -158,18 +158,16 @@ fun ColorDisplayWithClipboard(modifier: Modifier = Modifier, color: Color) {
                     color = textColor
                 )
                 Text(
-                    text =
-                        "H: ${hslArray[0].roundToInt()}° " +
-                            "S: ${hslArray[1].fractionToIntPercent()}% " +
-                            "L: ${hslArray[2].fractionToIntPercent()}%",
+                    text = "H: ${hslArray[0].roundToInt()}° " +
+                        "S: ${hslArray[1].fractionToIntPercent()}% " +
+                        "L: ${hslArray[2].fractionToIntPercent()}%",
                     fontSize = 12.sp,
                     color = textColor
                 )
                 Text(
-                    text =
-                        "H: ${hsvArray[0].roundToInt()}° " +
-                            "S: ${hsvArray[1].fractionToIntPercent()}% " +
-                            "V: ${hsvArray[2].fractionToIntPercent()}%",
+                    text = "H: ${hsvArray[0].roundToInt()}° " +
+                        "S: ${hsvArray[1].fractionToIntPercent()}% " +
+                        "V: ${hsvArray[2].fractionToIntPercent()}%",
                     fontSize = 12.sp,
                     color = textColor
                 )

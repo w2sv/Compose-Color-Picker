@@ -16,6 +16,7 @@ androidx-core-ktx = "androidx.core:core-ktx:1.18.0"
 stf-compose-colorful-sliders = "com.github.SmartToolFactory:Compose-Colorful-Sliders:1.3.0"
 stf-compose-extended-colors = "com.github.SmartToolFactory:Compose-Extended-Colors:1.0.0-alpha07"
 stf-compose-extended-gestures = "com.github.SmartToolFactory:Compose-Extended-Gestures:4.0.0"
+w2sv-composed-core = "com.github.w2sv.Composed:core:0.1.1"
 
 [plugins]
 android-library = { id = "com.android.library", version.ref = "agp" }
