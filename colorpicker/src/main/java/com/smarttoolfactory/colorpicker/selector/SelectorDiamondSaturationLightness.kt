@@ -26,7 +26,7 @@ import com.smarttoolfactory.colorpicker.ui.GradientAngle
 import com.smarttoolfactory.colorpicker.ui.GradientOffset
 import com.smarttoolfactory.colorpicker.util.drawIntoLayer
 import com.smarttoolfactory.gesture.detectMotionEvents
-import com.w2sv.composed.core.extensions.toPx
+import com.w2sv.composed.ui.unit.toPx
 
 /**
  * Saturation and Lightness selector in shape of *diamond* for

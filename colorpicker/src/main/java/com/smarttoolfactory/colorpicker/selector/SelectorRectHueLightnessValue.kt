@@ -21,7 +21,7 @@ import com.smarttoolfactory.colorpicker.ui.brush.whiteToTransparentToBlackVertic
 import com.smarttoolfactory.colorpicker.ui.gradientColorScaleHSL
 import com.smarttoolfactory.colorpicker.ui.gradientColorScaleHSV
 import com.smarttoolfactory.gesture.detectMotionEvents
-import com.w2sv.composed.core.extensions.toPx
+import com.w2sv.composed.ui.unit.toPx
 
 /**
  * Rectangle Hue and Value selector for

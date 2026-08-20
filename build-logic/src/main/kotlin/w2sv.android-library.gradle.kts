@@ -20,7 +20,7 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile>().configureEa
 
 android {
     namespace = "com.w2sv.${path.removePrefix(":").replace(':', '.')}"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         minSdk = 23

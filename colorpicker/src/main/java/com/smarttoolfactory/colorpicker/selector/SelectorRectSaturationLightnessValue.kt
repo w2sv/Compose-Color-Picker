@@ -22,7 +22,7 @@ import com.smarttoolfactory.colorpicker.ui.brush.saturationHSVGradient
 import com.smarttoolfactory.colorpicker.ui.brush.valueGradient
 import com.smarttoolfactory.colorpicker.util.drawBlendingRectGradient
 import com.smarttoolfactory.gesture.detectMotionEvents
-import com.w2sv.composed.core.extensions.toPx
+import com.w2sv.composed.ui.unit.toPx
 
 /**
  * Rectangle Saturation and Lightness selector for

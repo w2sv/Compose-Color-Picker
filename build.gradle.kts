@@ -6,6 +6,9 @@ plugins {
     alias(libs.plugins.versionCatalogUpdate)
 }
 
+// Enfore kgp version
+buildscript { dependencies { classpath(libs.kotlin.gradle.plugin) } }
+
 versionCatalogUpdate {
     versionSelector(VersionSelectors.PREFER_STABLE)
 }
