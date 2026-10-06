@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import com.smarttoolfactory.colorpicker.ui.brush.transparentToBlackVerticalGradient
 import com.smarttoolfactory.colorpicker.ui.brush.transparentToGrayVerticalGradient
@@ -21,7 +22,6 @@ import com.smarttoolfactory.colorpicker.ui.brush.whiteToTransparentToBlackVertic
 import com.smarttoolfactory.colorpicker.ui.gradientColorScaleHSL
 import com.smarttoolfactory.colorpicker.ui.gradientColorScaleHSV
 import com.smarttoolfactory.gesture.detectMotionEvents
-import com.w2sv.composed.ui.unit.toPx
 
 /**
  * Rectangle Hue and Value selector for
@@ -247,7 +247,9 @@ private fun SelectorRect(
 
         val selectorRadius =
             if (selectionRadius != Dp.Unspecified) {
-                selectionRadius.toPx()
+                with(LocalDensity.current) {
+                    selectionRadius.toPx()
+                }
             } else {
                 width.coerceAtMost(height) * .04f
             }

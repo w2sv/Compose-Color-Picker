@@ -14,6 +14,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import com.smarttoolfactory.colorpicker.model.ColorModel
 import com.smarttoolfactory.colorpicker.ui.brush.lightnessGradient
@@ -22,7 +23,6 @@ import com.smarttoolfactory.colorpicker.ui.brush.saturationHSVGradient
 import com.smarttoolfactory.colorpicker.ui.brush.valueGradient
 import com.smarttoolfactory.colorpicker.util.drawBlendingRectGradient
 import com.smarttoolfactory.gesture.detectMotionEvents
-import com.w2sv.composed.ui.unit.toPx
 
 /**
  * Rectangle Saturation and Lightness selector for
@@ -113,7 +113,9 @@ private fun SelectorRect(
          * Circle selector radius for setting [saturation] and [property] by gesture
          */
         val selectorRadius = if (selectionRadius != Dp.Unspecified) {
-            selectionRadius.toPx()
+            with(LocalDensity.current) {
+                selectionRadius.toPx()
+            }
         } else {
             width.coerceAtMost(height) * .04f
         }

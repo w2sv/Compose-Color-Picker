@@ -20,13 +20,13 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import com.smarttoolfactory.colorpicker.model.ColorModel
 import com.smarttoolfactory.colorpicker.ui.GradientAngle
 import com.smarttoolfactory.colorpicker.ui.GradientOffset
 import com.smarttoolfactory.colorpicker.util.drawIntoLayer
 import com.smarttoolfactory.gesture.detectMotionEvents
-import com.w2sv.composed.ui.unit.toPx
 
 /**
  * Saturation and Lightness selector in shape of *diamond* for
@@ -90,13 +90,15 @@ fun SelectorDiamondSaturationLightnessHSL(
          * Width and height of the diamond is geometrically equal so it's sufficient to
          * use either width or height to have a length parameter
          */
-        val length = maxWidth.toPx()
+        val length = with(LocalDensity.current) { maxWidth.toPx() }
 
         /**
          * Circle selector radius for setting [saturation] and [lightness] by gesture
          */
         val selectorRadius = if (selectionRadius != Dp.Unspecified) {
-            selectionRadius.toPx()
+            with(LocalDensity.current) {
+                selectionRadius.toPx()
+            }
         } else {
             length * .04f
         }
